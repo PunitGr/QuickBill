@@ -1,5 +1,5 @@
 {
-  "name": "MakeInvoice",
+  "name": "QuickBill",
   "version": "1.0.0",
   "description": "Invoice Generator",
   "main": "index.js",

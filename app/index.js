@@ -1,7 +1,8 @@
 import React from "react";
 import { render } from "react-dom";
+import App from "./components/App.js";
 
 render(
-    <h1>MakeInvoice</h1>,
-    document.querySelector(".app")
+    <App />,
+    document.getElementById("app")
 );
