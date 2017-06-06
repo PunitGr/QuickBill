@@ -1,0 +1,78 @@
+.wrapper {
+    position: absolute;
+    margin-top: 70px;
+    background-color: #f2f5f7;
+    padding: 40px 0;
+    width: 100%;
+    
+    .invoice {
+        @media screen and (min-width: 1000px) {
+            width: 960px;
+            margin: 0 auto;
+            background-color: #fff;  
+            box-shadow: 0 3px 12px rgba(222,222,252,.5);
+            padding: 50px;
+        }
+
+        @include element("info") {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 10px;
+            align-items: center;
+            height: 34px;
+
+            label {
+                width: 120px;
+                font-weight: 400;
+                font-size: 18px;
+                margin-bottom: 0;
+            }
+
+            .input-element {
+                border: 0;
+                border-bottom: 2px solid #E6EBF0;
+                width: 200px;
+            }
+            
+            .SingleDatePicker {
+
+                .SingleDatePickerInput {
+                    border: 0;
+                    border-bottom: 2px solid #E6EBF0;
+                    width: 200px;
+
+                    .DateInput {
+                        font-weight: 300;
+                        padding: 0;
+                        width: 100%;
+
+                        @include modifier("with-caret") {
+                            &:before {
+                                top: 42px;
+                            }
+
+                            &:after {
+                                top: 43px;
+                            }
+
+
+                        }
+
+                        @include element("display-text") {
+                            
+                            @include modifier("focused") {
+                                background: #fff;
+                                border-radius: 0;
+                                color: #555;
+                            }
+                        }
+                    }
+                }
+
+                @include element("picker") {
+                    top: 53px;
+                }
+            }
+        }
+    }
+}

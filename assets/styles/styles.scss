@@ -7,6 +7,10 @@
 @import "partials/base/base",
         "partials/base/helper";
 
+@import "../../node_modules/react-dates/css/variables.scss",
+        "../../node_modules/react-dates/css/styles.scss";
+
 @import "partials/components/navbar",
         "partials/components/banner",
-        "partials/components/buttons";
+        "partials/components/buttons",
+        "partials/components/invoice";
