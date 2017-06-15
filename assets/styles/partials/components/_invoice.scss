@@ -1,76 +1,116 @@
 .wrapper {
-    position: absolute;
     margin-top: 70px;
-    background-color: #f2f5f7;
-    padding: 40px 0;
     width: 100%;
     
-    .invoice {
-        @media screen and (min-width: 1000px) {
-            width: 960px;
-            margin: 0 auto;
-            background-color: #fff;  
-            box-shadow: 0 3px 12px rgba(222,222,252,.5);
-            padding: 50px;
-        }
+    .invoice-container {
+        display: flex;
+        padding: 40px 0;
+        background-color: #f2f5f7;
+        width: calc(100% - 281px);
+        margin-left: 281px;
 
-        @include element("info") {
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 10px;
-            align-items: center;
-            height: 34px;
-
-            label {
-                width: 120px;
-                font-weight: 400;
-                font-size: 18px;
-                margin-bottom: 0;
+        .invoice {
+            @media screen and (min-width: 1000px) {
+                width: 960px;
+                margin: 0 auto;
+                background-color: #fff;  
+                box-shadow: 0 3px 12px rgba(222,222,252,.5);
+                padding: 50px;
             }
 
-            .input-element {
-                border: 0;
-                border-bottom: 2px solid #E6EBF0;
-                width: 200px;
-            }
-            
-            .SingleDatePicker {
+            @include element("info") {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 10px;
+                align-items: center;
+                height: 34px;
 
-                .SingleDatePickerInput {
+                label {
+                    width: 220px;
+                    font-weight: 400;
+                    font-size: 16px;
+                    margin-bottom: 0;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+
+                    > span {
+                        width: 120px;
+                    }
+
+                    .invoice-label {
+                        font-size: 24px;
+                    }
+
+                    > a {
+                        display: none;
+                        font-size: 11px;
+                        text-decoration: none;
+                        color: #495aff;
+                    }
+
+                    .show {
+                        display: block;
+                    } 
+                }
+
+                .input-element {
                     border: 0;
                     border-bottom: 2px solid #E6EBF0;
                     width: 200px;
+                }
+                
+                .SingleDatePicker {
 
-                    .DateInput {
-                        font-weight: 300;
-                        padding: 0;
-                        width: 100%;
+                    .SingleDatePickerInput {
+                        border: 0;
+                        border-bottom: 2px solid #E6EBF0;
+                        width: 200px;
 
-                        @include modifier("with-caret") {
-                            &:before {
-                                top: 42px;
+                        .DateInput {
+                            font-weight: 300;
+                            padding: 0;
+                            width: 100%;
+
+                            @include modifier("with-caret") {
+                                &:before {
+                                    top: 42px;
+                                }
+
+                                &:after {
+                                    top: 43px;
+                                }
+
+
                             }
 
-                            &:after {
-                                top: 43px;
-                            }
-
-
-                        }
-
-                        @include element("display-text") {
-                            
-                            @include modifier("focused") {
-                                background: #fff;
-                                border-radius: 0;
-                                color: #555;
+                            @include element("display-text") {
+                                
+                                @include modifier("focused") {
+                                    background: #fff;
+                                    border-radius: 0;
+                                    color: #555;
+                                }
                             }
                         }
                     }
-                }
 
-                @include element("picker") {
-                    top: 53px;
+                    @include element("picker") {
+                        top: 53px;
+
+                        .DayPickerKeyboardShortcuts {
+                            
+                            @include element("show") {
+                                
+                                @include modifier("bottom-right") {
+                                    
+                                    &:hover {
+                                        border-right: 33px solid $react-dates-color-secondary;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

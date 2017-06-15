@@ -32,6 +32,8 @@
     "react-addons-shallow-compare": "^15.5.2",
     "react-dates": "^12.1.1",
     "react-dom": "^15.5.4",
-    "react-router-dom": "^4.1.1"
+    "react-router-dom": "^4.1.1",
+    "react-select": "^1.0.0-rc.5",
+    "react-toggle": "^4.0.1"
   }
 }
