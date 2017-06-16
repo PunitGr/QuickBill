@@ -1,117 +1,138 @@
-.wrapper {
-    margin-top: 70px;
-    width: 100%;
-    
-    .invoice-container {
-        display: flex;
-        padding: 40px 0;
-        background-color: #f2f5f7;
-        width: calc(100% - 281px);
-        margin-left: 281px;
+.invoice {
+    @media screen and (min-width: 1000px) {
+        width: 960px;
+        margin: 0 auto;
+        background-color: #fff;  
+        box-shadow: 0 3px 12px rgba(222,222,252,.5);
+        padding: 50px;
+    }
 
-        .invoice {
-            @media screen and (min-width: 1000px) {
-                width: 960px;
-                margin: 0 auto;
-                background-color: #fff;  
-                box-shadow: 0 3px 12px rgba(222,222,252,.5);
-                padding: 50px;
+    @include element("header") {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .Select {
+            max-width: 120px;
+            width: 100%;
+            font-weight: 400;
+            margin: 10px 0;
+            font-size: 15px;
+
+            .Select-input {
+                height: 46px;
+            }
+            
+            .Select-placeholder {
+                line-height: 46px;
+                font-weight: 400;
             }
 
-            @include element("info") {
-                display: flex;
-                flex-direction: row;
-                margin-bottom: 10px;
-                align-items: center;
-                height: 34px;
+            .Select-control {
+                height: 46px;
+                border-radius: 3px;
+                border-color: #D0D6DC;
 
-                label {
-                    width: 220px;
-                    font-weight: 400;
-                    font-size: 16px;
-                    margin-bottom: 0;
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-
-                    > span {
-                        width: 120px;
-                    }
-
-                    .invoice-label {
-                        font-size: 24px;
-                    }
-
-                    > a {
-                        display: none;
-                        font-size: 11px;
-                        text-decoration: none;
-                        color: #495aff;
-                    }
-
-                    .show {
-                        display: block;
-                    } 
+                .Select-value {
+                    line-height: 46px;
                 }
 
-                .input-element {
-                    border: 0;
-                    border-bottom: 2px solid #E6EBF0;
-                    width: 200px;
-                }
-                
-                .SingleDatePicker {
-
-                    .SingleDatePickerInput {
-                        border: 0;
-                        border-bottom: 2px solid #E6EBF0;
-                        width: 200px;
-
-                        .DateInput {
-                            font-weight: 300;
-                            padding: 0;
-                            width: 100%;
-
-                            @include modifier("with-caret") {
-                                &:before {
-                                    top: 42px;
-                                }
-
-                                &:after {
-                                    top: 43px;
-                                }
-
-
-                            }
-
-                            @include element("display-text") {
-                                
-                                @include modifier("focused") {
-                                    background: #fff;
-                                    border-radius: 0;
-                                    color: #555;
-                                }
-                            }
-                        }
+                .Select-clear-zone {
+                    .Select-clear {
+                        line-height: 2;
                     }
+                }
+            }
 
-                    @include element("picker") {
-                        top: 53px;
+            .Select-value-label {
+                font-weight: 400;
+            }
+        }
+    }
 
-                        .DayPickerKeyboardShortcuts {
-                            
-                            @include element("show") {
-                                
-                                @include modifier("bottom-right") {
-                                    
-                                    &:hover {
-                                        border-right: 33px solid $react-dates-color-secondary;
-                                    }
-                                }
+    @include element("info") {
+        display: flex;
+        max-width: 600px;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+
+        label {
+            font-weight: 300;
+            font-size: 13px;
+            margin-right: 5px;
+            color: #555;
+        }
+
+        .SingleDatePicker {
+
+            @include element("picker") {
+                top: 35px;
+
+                .DayPickerKeyboardShortcuts {
+
+                    @include element("show") {
+
+                        @include modifier("bottom-right") {
+                            &:hover {
+                                border-right: 33px solid #4846DE;
                             }
                         }
                     }
                 }
+            }
+
+            .SingleDatePickerInput {
+                border: 0px;
+            }
+
+            .DateInput {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 1.2;
+                padding: 0px;
+                width: 90px;
+
+                &:focus {
+                    border: 1px solid #D0D6DC;
+                }
+
+                @include modifier("with-caret") {
+                    &:before {
+                        top: 25px;
+                    }
+
+                    &:after {
+                        top: 26px;
+                    }
+                }
+
+                @include element("display-text") {
+
+                    @include modifier("focused") {
+                        background: #fff;
+                        color: #222;
+                    }
+                }
+            }
+        }
+
+        .input-element {
+            width: 90px;
+            border: 0;
+            font-weight: 400;
+            height: 30px;
+            color: #222;
+
+            @include modifier("number") {
+                width: 50px;
+            }
+
+            &:focus {
+                border-radius: 3px;
+                border: 1px solid #D0D6DC;
             }
         }
     }

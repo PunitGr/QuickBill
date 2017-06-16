@@ -1159,8 +1159,8 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
 
 consolidated-events@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/consolidated-events/-/consolidated-events-1.0.1.tgz#70f475f4a5d6d20428e702da1b8870d9cc031a14"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/consolidated-events/-/consolidated-events-1.1.0.tgz#2ee7aa59c2b346e00c58d324433ace3c47129221"
 
 constants-browserify@^1.0.0:
   version "1.0.0"
@@ -2693,7 +2693,7 @@ react-addons-shallow-compare@^15.5.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-dates@^12.1.1:
+react-dates@^12.1.2:
   version "12.1.2"
   resolved "https://registry.yarnpkg.com/react-dates/-/react-dates-12.1.2.tgz#0342865b50a9ed13e8671bcde39bf7066bda2311"
   dependencies:

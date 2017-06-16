@@ -11,7 +11,7 @@ type State = {
     discount: ?number,
     tax: ?number,
     payDate: boolean,
-    currency: ?string,
+    currency: {"value": ?string, "label": ?string},
 };
 
 export default class SideNav extends Component {
@@ -23,7 +23,7 @@ export default class SideNav extends Component {
             discount: undefined,
             tax: undefined,
             payDate: false,
-            currency: undefined,
+            currency: { "value": "$", "label": "USD" },
         }
     }
 
@@ -39,22 +39,22 @@ export default class SideNav extends Component {
     selectChange = (val: {value: ?string, label: ?string}) => {
         if (val) {
             this.setState({
-                currency: val.value
+                currency: val
             });
         }
         else {
             this.setState({
-                currency: ""
+                currency: { "value": "$", "label": "USD" }
             });
         }
     }
 
     render() {
         return (
-            <div className="invoice-nav">
+            <div className="side-nav">
                 <h4>Invoice Settings</h4>
                 <hr />
-                <div className="invoice-nav__element">
+                <div className="side-nav__element">
                     <div className="setting">
                         <span>Discount</span>
                         <input 
@@ -72,7 +72,7 @@ export default class SideNav extends Component {
                             onChange={this.handleChange} />
                     </div>
                     <div className="setting setting--inline">
-                        <span>Pay to date</span>
+                        <span>Paid to date</span>
                         <label>
                             <Toggle
                                 defaultChecked={this.state.payDate}
@@ -82,7 +82,7 @@ export default class SideNav extends Component {
                     </div>
                 </div>
                 <hr />
-                <div className="invoice-nav__element">
+                <div className="side-nav__element">
                     <div className="setting">
                         <span>Currency</span>
                         <Select 
@@ -94,7 +94,7 @@ export default class SideNav extends Component {
                     </div>
                 </div>
                 <hr className="full-line" />
-                <div className="invoice-nav__element">
+                <div className="side-nav__element">
                     <div className="setting">
                         <div className="solid-btn solid-btn--ghost">
                             <a className="ghost-btn"><i className="fa fa-eye" aria-hidden="true"></i> Preview</a>

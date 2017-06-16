@@ -2,6 +2,11 @@
 import React, { Component } from "react";
 import { SingleDatePicker } from "react-dates";
 import SideNav from "./SideNav";
+import Select from "react-select";
+import moment from "moment";
+
+let today = moment();
+let tomorrow  = moment(new Date()).add(1,'days');
 
 type Props = {};
 
@@ -9,13 +14,18 @@ type State = {
     invoiceNumber: string,
     issueDate: ?Date,
     dueDate: ?Date,
-    details: string,
+    job: string,
+    status: {value: ?string, label: ?string},
     issueFocused: boolean,
     dueFocused: boolean,
-    addDueDate: boolean,
-    removeDueDate: boolean,
-    show: boolean,   
 };
+
+const options = [
+    { value: "paid", label: "Paid"},
+    { value: "due", label: "Due"},
+    { value: "overdue", label: "Overdue"},
+    { value: "onhold", label: "On Hold"},
+]
 
 export default class Invoice extends Component {
     state: State;
@@ -23,32 +33,15 @@ export default class Invoice extends Component {
     constructor(props: Props) {
         super(props);
         this.state = {
-            invoiceNumber: "",
-            issueDate: null,
-            dueDate: null,
-            details: "",
+            invoiceNumber: "001",
+            issueDate: today,
+            dueDate: tomorrow,
+            job: "",
+            status: { value: "paid", label: "Paid"},
             issueFocused: false,
             dueFocused: false,
-            addDueDate: false,
-            removeDueDate: false,
-            show: true,
         }
         this.handleChange = this.handleChange.bind(this);
-    }
-
-    componentDidMount() {
-        const app = document.querySelector("#app");
-        if (app) {
-            app.className = "fix-navbar";
-        }
-    }
-
-    componentWillUnmount() {
-        const app = document.querySelector("#app");
-        if (app) {
-            app.className = ""; 
-        } 
-            
     }
 
     handleChange = (e: Event) => {
@@ -59,27 +52,14 @@ export default class Invoice extends Component {
         }
     }
 
-    toggle = (type: string) => {
-        if (type === "IssueDate" && !this.state.due) {
+    selectChange = (val: {value: ?string, label: ?string}) => {
+        if (val) {
             this.setState({
-                addDueDate: !this.state.addDueDate
-            });
-        }
-        if (type === "DueDate") {
-            this.setState({
-                removeDueDate: !this.state.removeDueDate
-            });
-        }
-    }
-
-    toggleDue = (type: string) => {
-        if (type === "show") {
-            this.setState({
-                show: !this.state.show
+                status: val
             });
         }else {
             this.setState({
-                show: !this.state.show
+                status: { value: "paid", label: "Paid"}
             });
         }
     }
@@ -87,49 +67,61 @@ export default class Invoice extends Component {
     render() {
         return (
             <div className="wrapper">
-                <SideNav />
-                <div className="invoice-container">  
-                    <div className="invoice">
-                        <div className="invoice__info" >
-                            <label htmlFor="invoice">
-                                <span className="invoice-label">Invoice #</span>
-                            </label>
-                            <input type="text"
-                                name="invoiceNumber"
-                                className="input-element"
-                                value={this.state.invoiceNumber}
-                                onChange={this.handleChange} />
-                        </div>
+                <div className="invoice">
+                    <div className="invoice__header">
+                        <Select
+                            name="status"
+                            value={this.state.status}
+                            options={options}
+                            onChange={this.selectChange}
+                        />
+                        <h2>Invoice</h2>
+                    </div>
 
-                        <div className="invoice__info" onMouseEnter={() => this.toggle("IssueDate")} onMouseLeave={() => this.toggle("IssueDate")}>
-                            <label htmlFor="invoice">
-                                <span>Issue Date</span>
-                                <a className={this.state.addDueDate ? "show" : ""} onClick={() => this.toggleDue("show")}>
-                                    Add due
-                                </a>
-                            </label>
+                    <div className="invoice__info">
+                        <div className="info">
+                            <label htmlFor="date">Date</label>
                             <SingleDatePicker
                                 date={this.state.issueDate}
                                 focused={this.state.issueFocused}
                                 numberOfMonths={1}
                                 onDateChange={date => this.setState({ issueDate: date })}
                                 onFocusChange={({focused}) => this.setState({ issueFocused: !this.state.issueFocused})}
+                                isOutsideRange={() => false}
                                 />
                         </div>
 
-                        <div className={this.state.show ? "invoice__info" : ""} onMouseEnter={() => this.toggle("DueDate")} onMouseLeave={() => this.toggle("DueDate")}>
-                            <label htmlFor="invoice">
-                                <span>Due Date</span>
-                                <a className={this.state.removeDueDate ? "show" : ""} onClick={() => this.toggleDue("hide")}>
-                                    Remove
-                                </a>
-                            </label>
+                        <div className="info">
+                            <label htmlFor="date">Due Date</label>
                             <SingleDatePicker
                                 date={this.state.dueDate}
                                 focused={this.state.dueFocused}
                                 numberOfMonths={1}
                                 onDateChange={date => this.setState({ dueDate: date })}
                                 onFocusChange={({focused}) => this.setState({ dueFocused: !this.state.dueFocused})}
+                                isOutsideRange={() => false}
+                                />
+                        </div>
+
+                        <div className="info">
+                            <label htmlFor="invoice">Invoice #</label>
+                            <input
+                                className="input-element input-element--number"
+                                name="invoiceNumber"
+                                value={this.state.invoiceNumber}
+                                onChange={this.handleChange}
+                                placeholder="Invoice Number"
+                                />
+                        </div>
+
+                        <div className="info">
+                            <label htmlFor="job">Job</label>
+                            <input
+                                className="input-element"
+                                name="job"
+                                value={this.state.job}
+                                onChange={this.handleChange}
+                                placeholder="Description"
                                 />
                         </div>
                     </div>

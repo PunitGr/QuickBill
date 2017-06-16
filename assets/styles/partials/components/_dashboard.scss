@@ -1,0 +1,11 @@
+.dashboard {
+    margin-top: 70px;
+    width: 100%;
+
+    .wrapper {
+        width: calc(100% - 281px);
+        background-color: #f2f5f7;
+        padding: 40px 0;
+        margin-left: 281px;
+    }
+}
