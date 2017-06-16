@@ -3,7 +3,6 @@
     min-width: 80px;
     padding: 4px 18px;
     height: 30px;
-    border-radius: 999em;
     font-weight: 400;
     font-size: 14px;
     letter-spacing: 0.01em;
@@ -21,9 +20,67 @@
     color: #fff;
     background-color: transparent;
     border: 1px solid #fff;
+    border-radius: 999em;
 
     &:hover, &:focus {
         color: #fafafa;
         border-color: #fafafa;
+    }
+
+    @include modifier("rect") {
+        width: 100%;
+        color: #fff;
+        border-radius: 3px;
+        height: 32px;
+        padding: 0;
+        background-image: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%);
+        line-height: 2.2;
+        font-size: 13px;
+        margin-top: 10px;
+
+        &:hover, &:focus {
+            color: #fafbfc;
+        }
+    } 
+
+    @include modifier("ghost") {
+        width: 100%;
+        border: 1px solid #D0D6DC;
+        color: #fff;
+        border-radius: 3px;
+        height: 32px;
+        padding: 0;
+        background: transparent;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+
+        &:hover, &:focus {
+            color: #555;
+            border-color: #D0D6DC;
+        }
+        
+        .ghost-btn {
+            margin: 0;
+            width: 50%;
+            height: 100%;
+            color: #555;
+            border: 0;
+            border-radius: 0;
+            padding: 0;
+            line-height: 2.2;
+            background: #fff;
+
+            &:hover, &:focus {
+                color: #777;
+                border-color: #D0D6DC;
+            }
+
+            &:first-child {
+                border-right: 1px solid #D0D6DC;
+            }
+        }
     }
 }

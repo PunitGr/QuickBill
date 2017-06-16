@@ -93,6 +93,18 @@ export default class SideNav extends Component {
                         />
                     </div>
                 </div>
+                <hr className="full-line" />
+                <div className="invoice-nav__element">
+                    <div className="setting">
+                        <div className="solid-btn solid-btn--ghost">
+                            <a className="ghost-btn"><i className="fa fa-eye" aria-hidden="true"></i> Preview</a>
+                            <a className="ghost-btn"><i className="fa fa-arrow-circle-down" aria-hidden="true"></i> Download</a>
+                        </div>
+                        <a className="solid-btn solid-btn--rect">
+                            <i className="fa fa-paper-plane" aria-hidden="true"></i> Send Invoice
+                        </a>
+                    </div>
+                </div>
             </div>
         );
     }

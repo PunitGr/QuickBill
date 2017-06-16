@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    padding: 40px 40px;
+    padding: 40px 0;
     height: 100%;
     width: 280px;
     background-color: #fff;
@@ -11,27 +11,32 @@
     color: #555;
 
     h4 {
+        margin-left: 40px;
+        margin-right: 40px;
         font-weight: 700;
         font-size: 16px;
     }
 
     hr {
-        margin-top: 0;
-        margin-bottom: 0;
+        margin: 0 40px;
         border: 1px solid #f2f2f2;
-        width: 100%;
+        max-width: 100%;
         border-top: 0;
     }
 
+    .full-line {
+        margin: 0;
+    }
+
     @include element("element") {
-        margin: 10px 0 10px;
+        margin: 10px 40px;
 
         .setting {
             padding: 10px 0;
 
             span {
                 font-weight: 700;
-                font-size: 14px;
+                font-size: 13px;
             }
 
             > input {
@@ -64,15 +69,21 @@
 
                 .Select-input {
                     height: 32px;
+
+                    &>input {
+                        padding: 0;
+                    }
                 }
                 
                 .Select-placeholder {
                     line-height: 32px;
+                    font-weight: 400;
                 }
 
                 .Select-control {
                     height: 32px;
                     border-radius: 3px;
+                    border-color: #D0D6DC;
 
                     .Select-value {
                         line-height: 32px;
@@ -82,6 +93,10 @@
                 .Select-value-label {
                     font-weight: 400;
                 }
+            }
+
+            .fa-paper-plane {
+                font-size: 12px;
             }
         }
     }
