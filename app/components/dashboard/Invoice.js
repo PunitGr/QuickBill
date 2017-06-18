@@ -5,8 +5,8 @@ import SideNav from "./SideNav";
 import Select from "react-select";
 import moment from "moment";
 
-let today = moment();
-let tomorrow  = moment(new Date()).add(1,'days');
+const today = moment();
+const tomorrow  = moment(new Date()).add(1,"days");
 
 type Props = {};
 
@@ -18,6 +18,14 @@ type State = {
     status: {value: ?string, label: ?string},
     issueFocused: boolean,
     dueFocused: boolean,
+    to: string,
+    from: string,
+    addressTo: string,
+    addressFrom: string,
+    phoneTo: string,
+    phoneFrom: string,
+    emailTo: string,
+    emailFrom: string
 };
 
 const options = [
@@ -40,6 +48,14 @@ export default class Invoice extends Component {
             status: { value: "paid", label: "Paid"},
             issueFocused: false,
             dueFocused: false,
+            to: "",
+            from: "",
+            addressTo: "",
+            addressFrom: "",
+            phoneTo: "",
+            phoneFrom: "",
+            emailTo: "",
+            emailFrom: "",
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -99,7 +115,6 @@ export default class Invoice extends Component {
                                 numberOfMonths={1}
                                 onDateChange={date => this.setState({ dueDate: date })}
                                 onFocusChange={({focused}) => this.setState({ dueFocused: !this.state.dueFocused})}
-                                isOutsideRange={() => false}
                                 />
                         </div>
 
@@ -125,6 +140,76 @@ export default class Invoice extends Component {
                                 />
                         </div>
                     </div>
+
+                    <div className="invoice__info">
+                        <div className="address-element">
+                            <label htmlFor="from">Bill from</label>
+                            <input 
+                                type="text"
+                                className="input-element" 
+                                name="from"
+                                value={this.state.from}
+                                onChange={this.handleChange}
+                                placeholder="From"
+                                />
+                            <textarea 
+                                name="addressFrom"
+                                value={this.state.addressFrom}
+                                onChange={this.handleChange}
+                                placeholder="Address"
+                            />
+                            <input 
+                                type="text"
+                                className="input-element" 
+                                name="phoneFrom"
+                                value={this.state.phoneFrom}
+                                onChange={this.handleChange}
+                                placeholder="Phone"
+                                />
+                            <input 
+                                type="email"
+                                className="input-element" 
+                                name="emailFrom"
+                                value={this.state.emailFrom}
+                                onChange={this.handleChange}
+                                placeholder="Email"
+                                />
+                        </div>
+                        <div className="address-element">
+                            <label htmlFor="to">Bill to</label>
+                            <input 
+                                type="text"
+                                className="input-element" 
+                                name="to"
+                                value={this.state.to}
+                                onChange={this.handleChange}
+                                placeholder="To"
+                                />
+                            <textarea 
+                                name="addressTo"
+                                value={this.state.addressTo}
+                                onChange={this.handleChange}
+                                placeholder="Address"
+                            />
+                            <input 
+                                type="text"
+                                className="input-element" 
+                                name="phoneTo"
+                                value={this.state.phoneTo}
+                                onChange={this.handleChange}
+                                placeholder="Phone"
+                                />
+                            <input 
+                                type="email"
+                                className="input-element" 
+                                name="emailTo"
+                                value={this.state.emailTo}
+                                onChange={this.handleChange}
+                                placeholder="Email"
+                                />
+                        </div>
+                    </div>
+                    <hr />
                 </div>
             </div>
         );
