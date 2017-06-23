@@ -4,6 +4,7 @@ import { SingleDatePicker } from "react-dates";
 import SideNav from "./SideNav";
 import Select from "react-select";
 import moment from "moment";
+import Item from "./Item";
 
 const today = moment();
 const tomorrow  = moment(new Date()).add(1,"days");
@@ -57,13 +58,13 @@ export default class Invoice extends Component {
             emailTo: "",
             emailFrom: "",
         }
-        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange = (e: Event) => {
         if (e.target instanceof HTMLInputElement) {
+            const { name, value } = e.target;
             this.setState({
-                [e.target.name]: e.target.value
+                [name]: value
             });
         }
     }
@@ -143,7 +144,7 @@ export default class Invoice extends Component {
 
                     <div className="invoice__info">
                         <div className="address-element">
-                            <label htmlFor="from">Bill from</label>
+                            <label htmlFor="from">Bill from:</label>
                             <input 
                                 type="text"
                                 className="input-element" 
@@ -176,7 +177,7 @@ export default class Invoice extends Component {
                                 />
                         </div>
                         <div className="address-element">
-                            <label htmlFor="to">Bill to</label>
+                            <label htmlFor="to">Bill to:</label>
                             <input 
                                 type="text"
                                 className="input-element" 
@@ -210,6 +211,7 @@ export default class Invoice extends Component {
                         </div>
                     </div>
                     <hr />
+                    <Item />
                 </div>
             </div>
         );

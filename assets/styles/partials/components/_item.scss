@@ -1,0 +1,28 @@
+.item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @include element("head") {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        &>div {
+            width: 200px;
+            color: #555;
+            font-weight: 300;
+        }
+    }
+
+    .item-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 10px;
+
+        &>input {
+            width: 200px;
+        }
+    }
+}
