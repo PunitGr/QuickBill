@@ -27,6 +27,7 @@ export default class ItemRow extends Component {
         }
     }
 
+
     handleChange = (e: Event) => {
         if (e.target instanceof HTMLInputElement) {
             const obj = this.state.obj;
@@ -39,26 +40,47 @@ export default class ItemRow extends Component {
     }
 
     render() {
-        const data = this.state.obj
+        const data = this.state.obj;
+
+        const itemRow = {
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            width: "100%"
+        }
+
+        const inputStyle = {
+            border: "0px",
+            width: "200px",
+            padding: "2px",
+            backgroundColor: "#FBFCFC",
+        }
+
         return(
-            <div className="item-row">
-                <input 
+            <div style={itemRow} className="item-row">
+                <input
+                    style={inputStyle} 
                     name="name"
                     type="text"
                     value={data.name}
                     onChange={this.handleChange}
+                    placeholder="Item Name"
                 />
-                <input 
+                <input
+                    style={inputStyle} 
                     name="description"
                     type="text"
                     value={data.description}
                     onChange={this.handleChange}
+                    placeholder="Description"
                 />
                 <input
+                    style={inputStyle}
                     name="amount"
                     type="number"
                     value={data.amount}
                     onChange={this.handleChange}
+                    placeholder="Amount"
                 />
             </div>
         );

@@ -2,57 +2,34 @@
 import React, { Component } from "react";
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from "react-sortable-hoc";
 import ItemRow from "./ItemRow";
-
-const DragHandle = SortableHandle(() => <div><span>::</span></div>);
-
-const SortableItem = SortableElement(({value}: Object) => {
-    return (
-        <li>
-            <DragHandle />
-            <ItemRow />
-        </li>
-    );
-});
-
-const SortableList = SortableContainer(({items}: Object) => {
-    return (
-        <ul>
-            {items.map((value: string, index: number) => (
-                <SortableItem key={`item-${index}`} index={index} value={value} />
-            ))}
-        </ul>
-    );
-});
+import { addItem, sortItems } from "../../actions";
+import { connect } from "react-redux";
 
 type Props = {};
 
 type State = {
-    items: Array<string>
+    items: Array<string>,
+    show: boolean
 };
 
-export default class Item extends Component {
+
+class Item extends Component {
     state: State;
 
     constructor(props: Props) {
         super(props);
         this.state = {
-            items: ['Item 1', 'Item 2'],
+            show: false
         }
     }
 
     onSortEnd = ({oldIndex, newIndex}: Object) => {
-        let {items} = this.state;
-        this.setState({
-            items: arrayMove(items, oldIndex, newIndex),
-        });
+        let {items} = this.props;
+        this.props.sortItems(arrayMove(items, oldIndex, newIndex));
     };
 
     addInput = () => {
-        const len = this.state.items.length;
-        this.state.items.push("Item " + len);
-        this.setState({
-            items: this.state.items
-        });
+        this.props.addItem(this.state.items);
     }
 
     addColumn = () => {
@@ -60,7 +37,48 @@ export default class Item extends Component {
     }
 
     render() {
-        let {items} = this.state;
+        const listStyle = {
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            alignItems: "center",
+            backgroundColor: "#FBFCFC",
+            borderRadius: "3px",
+            height: "32px",
+            padding: "0 8px",
+            marginTop: "10px",
+        }
+
+        const barStyle = {
+            fontSize: "18px",
+            color: "#999",
+            verticalAlign: "middle",
+            transition: "all .3s"
+        }
+
+        const DragHandle = SortableHandle(() => <span><i className="fa fa-bars" aria-hidden="true" style={barStyle}></i></span>);
+
+        const SortableItem = SortableElement(({value}: Object) => {
+            return (
+                <li style={listStyle}>
+                    <ItemRow />
+                    <DragHandle />
+                </li>
+            );
+        });
+
+        const SortableList = SortableContainer(({items}: Object) => {
+            return (
+                <ul>
+                    {items.map((value: string, index: number) => (
+                        <SortableItem key={`${index}`} index={index} value={value} />
+                    ))}
+                </ul>
+            );
+        });
+        
+        let {items} = this.props;
+        
         return (
             <div className="item">
                 <div className="item__head">
@@ -83,3 +101,18 @@ export default class Item extends Component {
         );
     }
 }
+
+function mapStateToProps(state, ownProps) {
+    return {
+        items: state.items
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addItem: item => dispatch(addItem(item)),
+        sortItems: item => dispatch(sortItems(item))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
