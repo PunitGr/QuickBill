@@ -41,7 +41,28 @@
         &:hover, &:focus {
             color: #fafbfc;
         }
-    } 
+    }
+
+    @include modifier("new") {
+        background-color: #31D600;
+        border-color: #31D600;
+        color: #fff;
+        border-radius: 3px;
+        margin: 15px 15px 15px 2px;
+        width: 120px;
+
+        &:hover, &:focus {
+            border-color: #30cc02;
+            background-color: #30cc02;
+        }
+    }
+
+    @include modifier("save") {
+        &:hover, &:focus {
+            // border-color: #30cc02;
+            background: #30cc02;
+        }
+    }
 
     @include modifier("ghost") {
         width: 100%;

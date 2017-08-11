@@ -1,7 +1,15 @@
 // @flow
 import React, { Component } from "react";
+import { addItemValues } from "../../actions";
+import { connect } from "react-redux";
 
-type Props = {};
+type Props = {
+    obj: {
+        name: string,
+        description: string,
+        amount: ?number,
+    },
+};
 
 type State = {
     obj: {
@@ -9,6 +17,7 @@ type State = {
         description: string,
         amount: ?number,
     },
+
     add: boolean
 };
 
@@ -21,7 +30,7 @@ export default class ItemRow extends Component {
             obj: {
                 name: "",
                 description: "",
-                amount: undefined,
+                amount: undefined
             },
             add: false,
         }
@@ -86,3 +95,17 @@ export default class ItemRow extends Component {
         );
     }
 }
+
+// function mapStateToProps(state, ownProps) {
+//     return {
+//         itemValue: state.items
+//     }
+// }
+
+// function mapDispatchToProps(dispatch) {
+//     return {
+//         addItemValues: item => dispatch(addItemValues(item)),
+//     }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(ItemRow);
