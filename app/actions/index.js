@@ -16,9 +16,9 @@ export function addItem(id, value) {
     }
 }
 
-export function sortItems(items: Array<mixed>) {
+export function setItemsOrder(order: Array<mixed>) {
     return {
         type: SORT_ITEMS,
-        items
+        order
     }
 }

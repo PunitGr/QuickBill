@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from "react";
-import { addItemValues } from "../../actions";
+import { addItem } from "../../actions";
 import { connect } from "react-redux";
 
 type Props = {
@@ -21,7 +21,43 @@ type State = {
     add: boolean
 };
 
-export default class ItemRow extends Component {
+const itemRow = {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%"
+}
+
+const inputStyle = {
+    border: "0px",
+    width: "200px",
+    padding: "2px",
+    backgroundColor: "#FBFCFC",
+}
+
+const saveButtonStyle = {
+    borderRadius: "3px",
+    color: "#fff",
+    margin: "4px 15px",
+    backgroundColor: "#01D58A",
+    padding: "3px 12px",
+}
+
+const saveButtonHoverStyle = {
+    borderRadius: "3px",
+    color: "#fff",
+    margin: "4px 15px",
+    backgroundColor: "rgba(3, 199, 130, 1)",
+    padding: "3px 12px",
+}
+
+const deleteButtonStyle = {
+    fontSize: "18px",
+    color: "#999",
+    margin: "4px 15px 4px 0"
+}
+
+class ItemRow extends Component {
     state: State;
 
     constructor(props: Props) {
@@ -33,13 +69,25 @@ export default class ItemRow extends Component {
                 amount: undefined
             },
             add: false,
+            hoverIn: false
         }
     }
 
+    handleSave = () => {
+        const itemId = this.props.itemId;
+        const { obj } = this.state;
+        this.props.addItem(itemId, obj);
+    }
+
+    hoverStatus = () => {
+        this.setState({
+            hoverIn: !this.state.hoverIn
+        });
+    }
 
     handleChange = (e: Event) => {
         if (e.target instanceof HTMLInputElement) {
-            const obj = this.state.obj;
+            const { obj } = this.state;
             const { name, value } = e.target;
             obj[name] = value;
             this.setState({
@@ -49,21 +97,7 @@ export default class ItemRow extends Component {
     }
 
     render() {
-        const data = this.state.obj;
-
-        const itemRow = {
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            width: "100%"
-        }
-
-        const inputStyle = {
-            border: "0px",
-            width: "200px",
-            padding: "2px",
-            backgroundColor: "#FBFCFC",
-        }
+        const { obj: data } = this.state;
 
         return(
             <div style={itemRow} className="item-row">
@@ -91,21 +125,28 @@ export default class ItemRow extends Component {
                     onChange={this.handleChange}
                     placeholder="Amount"
                 />
+                    <a  onClick={this.handleSave}
+                    style={this.state.hoverIn ? saveButtonHoverStyle : saveButtonStyle}
+                    onMouseEnter={this.hoverStatus}
+                    onMouseLeave={this.hoverStatus}>
+                        Save
+                    </a>
+                    <a><i style={deleteButtonStyle} className="fa fa-trash" aria-hidden="true"></i></a>
             </div>
         );
     }
 }
 
-// function mapStateToProps(state, ownProps) {
-//     return {
-//         itemValue: state.items
-//     }
-// }
+function mapStateToProps(state, ownProps) {
+    return {
+        items: state.items
+    }
+}
 
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         addItemValues: item => dispatch(addItemValues(item)),
-//     }
-// }
+function mapDispatchToProps(dispatch) {
+    return {
+        addItem: (id, value) => dispatch(addItem(id, value)),
+    }
+}
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ItemRow);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemRow);
