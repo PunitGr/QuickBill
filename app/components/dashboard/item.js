@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from "react-sortable-hoc";
 import ItemRow from "./ItemRow";
-import { addItem, sortItems, addItemValues } from "../../actions";
+import { addItem, sortItems } from "../../actions";
 import { connect } from "react-redux";
 
 type Props = {
@@ -12,9 +12,9 @@ type Props = {
 };
 
 type State = {
-    hoverIn: boolean
+    hoverIn: boolean,
+    item: Array<mixed>
 };
-
 
 class Item extends Component {
     state: State;
@@ -22,17 +22,22 @@ class Item extends Component {
     constructor(props: Props) {
         super(props);
         this.state = {
-            hoverIn: false
+            item: [1],
+            hoverIn: false,
         }
     }
 
     onSortEnd = ({oldIndex, newIndex}: Object) => {
         let { items } = this.props;
+        console.log(items);
         this.props.sortItems(arrayMove(items, oldIndex, newIndex));
     }
 
     addInput = () => {
-        this.props.addItem();
+        const { item } = this.state;
+        this.setState({
+            item: item.concat(item.length + 1)
+        });
     }
 
     hoverStatus = () => {
@@ -88,15 +93,7 @@ class Item extends Component {
         const SortableItem = SortableElement(({value}: Object) => {
             return (
                 <li style={listStyle}>
-                    <ItemRow />
-                    <a 
-                        style={this.state.hoverIn ? saveButtonHoverStyle : saveButtonStyle}
-                        onMouseEnter={this.hoverStatus}
-                        onMouseLeave={this.hoverStatus}
-                    >
-                        Save
-                    </a>
-                    <a><i style={deleteButtonStyle} className="fa fa-trash" aria-hidden="true"></i></a>
+                    <ItemRow itemId={value} />
                     <DragHandle />
                 </li>
             );
@@ -111,9 +108,9 @@ class Item extends Component {
                 </ul>
             );
         });
-        
-        let {items} = this.props;
-        
+
+        let {item} = this.props;
+
         return (
             <div className="item">
                 <div className="item__head">
@@ -124,7 +121,7 @@ class Item extends Component {
                         <a onClick={this.addColumn}>+</a>
                     </div>
                 </div>
-                <SortableList items={items} onSortEnd={this.onSortEnd} useDragHandle={true} />
+                <SortableList items={item} onSortEnd={this.onSortEnd} useDragHandle={true} />
                 <a onClick={this.addInput} className="solid-btn solid-btn--new">
                     <i className="fa fa-plus-circle" aria-hidden="true"></i>
                     Add Row
@@ -142,7 +139,6 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        addItem: item => dispatch(addItem()),
         sortItems: item => dispatch(sortItems(item)),
     }
 }

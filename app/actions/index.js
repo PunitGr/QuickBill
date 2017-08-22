@@ -8,9 +8,11 @@ export function setUser(user: string) {
     }
 }
 
-export function addItem() {
+export function addItem(id, value) {
     return {
-        type: ADD_ITEM
+        type: ADD_ITEM,
+        id,
+        value
     }
 }
 
@@ -18,12 +20,5 @@ export function sortItems(items: Array<mixed>) {
     return {
         type: SORT_ITEMS,
         items
-    }
-}
-
-export function addItemValues(obj: Object) {
-    return {
-        type: ADD_ITEM_VALUES,
-        obj
     }
 }
