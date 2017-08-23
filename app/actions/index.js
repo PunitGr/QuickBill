@@ -1,5 +1,5 @@
 // @flow
-import { SET_USER, ADD_ITEM, SORT_ITEMS, SET_ITEM } from "../constants";
+import { SET_USER, ADD_ITEM, SORT_ITEMS, SET_ITEM, REMOVE_ITEM } from "../constants";
 
 export type Action = {
     type: string,
@@ -36,5 +36,12 @@ export function setItem(id: number, value: Object): Action {
         type: SET_ITEM,
         id,
         value
+    }
+}
+
+export function removeItem(id: number): Action {
+    return {
+        type: REMOVE_ITEM,
+        id
     }
 }

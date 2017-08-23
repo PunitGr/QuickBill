@@ -7,6 +7,7 @@ type Props = {
     obj: {
         name: string,
         description: string,
+        quantity: ?number,
         amount: ?number,
     },
     itemId: number,
@@ -16,6 +17,7 @@ type Props = {
 type State = {
     obj: {
         name: string,
+        quantity: ?number,
         description: string,
         amount: ?number,
     },
@@ -33,7 +35,8 @@ class ItemRow extends Component {
             obj: {
                 name: "",
                 description: "",
-                amount: undefined
+                amount: undefined,
+                quantity: undefined
             },
             add: false
         }
@@ -43,7 +46,7 @@ class ItemRow extends Component {
         if (e.target instanceof HTMLInputElement) {
             const { obj } = this.state;
             const { name, value } = e.target;
-            if (name === "amount") {
+            if (name === "amount" || name === "quantity") {
                 obj[name] = parseInt(value);
             } else {
                 obj[name] = value;
@@ -52,7 +55,7 @@ class ItemRow extends Component {
                 obj
             });
             const itemId = this.props.itemId;
-            console.log(itemId, obj);
+
             this.props.setItem(itemId, obj);
         }
     }
@@ -80,6 +83,15 @@ class ItemRow extends Component {
                 />
                 <input
                     style={style.inputStyle}
+                    name="quantity"
+                    type="text"
+                    pattern="[0-9]*"
+                    value={data.quantity}
+                    onChange={this.handleChange}
+                    placeholder="Quantity"
+                />
+                <input
+                    style={style.inputStyle}
                     name="amount"
                     type="text"
                     pattern="[0-9]*"
@@ -87,8 +99,6 @@ class ItemRow extends Component {
                     onChange={this.handleChange}
                     placeholder="Amount"
                 />
-
-                <a><i style={style.deleteButtonStyle} className="fa fa-trash" aria-hidden="true"></i></a>
             </div>
         );
     }
@@ -103,7 +113,7 @@ const style = {
     },
     inputStyle: {
         border: "0px",
-        width: "200px",
+        width: "160px",
         padding: "2px",
         backgroundColor: "#FBFCFC",
     },
