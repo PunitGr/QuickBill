@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from "react";
-import { addItem } from "../../actions";
+import { setItem } from "../../actions";
 import { connect } from "react-redux";
 
 type Props = {
@@ -9,6 +9,8 @@ type Props = {
         description: string,
         amount: ?number,
     },
+    itemId: number,
+    setItem: Function
 };
 
 type State = {
@@ -21,41 +23,6 @@ type State = {
     add: boolean
 };
 
-const itemRow = {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%"
-}
-
-const inputStyle = {
-    border: "0px",
-    width: "200px",
-    padding: "2px",
-    backgroundColor: "#FBFCFC",
-}
-
-const saveButtonStyle = {
-    borderRadius: "3px",
-    color: "#fff",
-    margin: "4px 15px",
-    backgroundColor: "#01D58A",
-    padding: "3px 12px",
-}
-
-const saveButtonHoverStyle = {
-    borderRadius: "3px",
-    color: "#fff",
-    margin: "4px 15px",
-    backgroundColor: "rgba(3, 199, 130, 1)",
-    padding: "3px 12px",
-}
-
-const deleteButtonStyle = {
-    fontSize: "18px",
-    color: "#999",
-    margin: "4px 15px 4px 0"
-}
 
 class ItemRow extends Component {
     state: State;
@@ -68,31 +35,25 @@ class ItemRow extends Component {
                 description: "",
                 amount: undefined
             },
-            add: false,
-            hoverIn: false
+            add: false
         }
-    }
-
-    handleSave = () => {
-        const itemId = this.props.itemId;
-        const { obj } = this.state;
-        this.props.addItem(itemId, obj);
-    }
-
-    hoverStatus = () => {
-        this.setState({
-            hoverIn: !this.state.hoverIn
-        });
     }
 
     handleChange = (e: Event) => {
         if (e.target instanceof HTMLInputElement) {
             const { obj } = this.state;
             const { name, value } = e.target;
-            obj[name] = value;
+            if (name === "amount") {
+                obj[name] = parseInt(value);
+            } else {
+                obj[name] = value;
+            }
             this.setState({
                 obj
             });
+            const itemId = this.props.itemId;
+            console.log(itemId, obj);
+            this.props.setItem(itemId, obj);
         }
     }
 
@@ -100,9 +61,9 @@ class ItemRow extends Component {
         const { obj: data } = this.state;
 
         return(
-            <div style={itemRow} className="item-row">
+            <div style={style.itemRow} className="item-row">
                 <input
-                    style={inputStyle} 
+                    style={style.inputStyle} 
                     name="name"
                     type="text"
                     value={data.name}
@@ -110,7 +71,7 @@ class ItemRow extends Component {
                     placeholder="Item Name"
                 />
                 <input
-                    style={inputStyle} 
+                    style={style.inputStyle} 
                     name="description"
                     type="text"
                     value={data.description}
@@ -118,22 +79,52 @@ class ItemRow extends Component {
                     placeholder="Description"
                 />
                 <input
-                    style={inputStyle}
+                    style={style.inputStyle}
                     name="amount"
-                    type="number"
+                    type="text"
+                    pattern="[0-9]*"
                     value={data.amount}
                     onChange={this.handleChange}
                     placeholder="Amount"
                 />
-                    <a  onClick={this.handleSave}
-                    style={this.state.hoverIn ? saveButtonHoverStyle : saveButtonStyle}
-                    onMouseEnter={this.hoverStatus}
-                    onMouseLeave={this.hoverStatus}>
-                        Save
-                    </a>
-                    <a><i style={deleteButtonStyle} className="fa fa-trash" aria-hidden="true"></i></a>
+
+                <a><i style={style.deleteButtonStyle} className="fa fa-trash" aria-hidden="true"></i></a>
             </div>
         );
+    }
+}
+
+const style = {
+    itemRow: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%"
+    },
+    inputStyle: {
+        border: "0px",
+        width: "200px",
+        padding: "2px",
+        backgroundColor: "#FBFCFC",
+    },
+    saveButtonStyle: {
+        borderRadius: "3px",
+        color: "#fff",
+        margin: "4px 15px",
+        backgroundColor: "#01D58A",
+        padding: "3px 12px",
+    },
+    saveButtonHoverStyle: {
+        borderRadius: "3px",
+        color: "#fff",
+        margin: "4px 15px",
+        backgroundColor: "rgba(3, 199, 130, 1)",
+        padding: "3px 12px",
+    },
+    deleteButtonStyle: {
+        fontSize: "18px",
+        color: "#999",
+        margin: "4px 15px 4px 0"
     }
 }
 
@@ -145,7 +136,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        addItem: (id, value) => dispatch(addItem(id, value)),
+        setItem: (id, value) => dispatch(setItem(id, value)),
     }
 }
 

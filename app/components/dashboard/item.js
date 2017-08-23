@@ -6,7 +6,8 @@ import { addItem, setItemsOrder } from "../../actions";
 import { connect } from "react-redux";
 
 type Props = {
-    items: Array<mixed>,
+    items: Object,
+    order: Array<number>,
     setItemsOrder: Function,
     addItem: Function
 };
@@ -23,11 +24,11 @@ const SortableItem = SortableElement(({value}: Object) => {
     );
 });
 
-const SortableList = SortableContainer(({items}: Object) => {
+const SortableList = SortableContainer(({order, items}: Object) => {
     return (
         <ul>
-            {items.map((value: string, index: number) => (
-                <SortableItem key={`${index}`} index={index} value={value} />
+            {order.map((value, index) => (
+                <SortableItem key={value} index={index} value={value} />
             ))}
         </ul>
     );
@@ -75,7 +76,6 @@ const deleteButtonStyle = {
 }
 
 class Item extends Component {
-    state: State;
 
     constructor(props: Props) {
         super(props);
@@ -88,12 +88,12 @@ class Item extends Component {
     }
 
     addInput = () => {
-        const { order } = this.props;
-        this.props.setItemsOrder(order.concat(order.length + 1));
+        const order = this.props.order || 0;
+        this.props.addItem(order.length + 1, null);
     }
 
     render() {
-        let { order } = this.props;
+        let { order, items } = this.props;
 
         return (
             <div className="item">
@@ -101,11 +101,8 @@ class Item extends Component {
                     <div className="name">Item</div>
                     <div className="description">Description</div>
                     <div className="amount">Amount</div>
-                    <div>
-                        <a onClick={this.addColumn}>+</a>
-                    </div>
                 </div>
-                <SortableList items={order} onSortEnd={this.onSortEnd} useDragHandle={true} />
+                <SortableList order={order} items={items} onSortEnd={this.onSortEnd} useDragHandle={true} />
                 <a onClick={this.addInput} className="solid-btn solid-btn--new">
                     <i className="fa fa-plus-circle" aria-hidden="true"></i>
                     Add Row
@@ -125,6 +122,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         setItemsOrder: item => dispatch(setItemsOrder(item)),
+        addItem: (id, value) => dispatch(addItem(id, value))
     }
 }
 
