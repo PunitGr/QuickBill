@@ -173,4 +173,44 @@
         }
     }
 
+    @include element("bill") {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-end;
+        padding-right: 40px;
+
+        .bill-detail {
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+            
+            &>div {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                line-height: 1.2;
+
+                &>span {
+                    display: flex;
+                    align-items: center;
+                    color: #b9bec1;
+                    font-size: 15px;
+                }
+
+                &>h2 {
+                    margin: 0px;
+                    font-size: 14px;
+                    color: #666;
+                }
+
+                .bill-total {
+                    font-size: 19px;
+                    color: #888;
+                }
+            }
+        }
+    }
+
 }

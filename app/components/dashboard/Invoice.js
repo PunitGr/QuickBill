@@ -212,6 +212,24 @@ export default class Invoice extends Component {
                     </div>
                     <hr />
                     <Item />
+                    <hr />
+                    <div className="invoice__bill">
+                        <div className="bill-detail">                        
+                            <div>
+                                <span>Subtotal</span>
+                                <h2>123.00</h2>
+                            </div>
+                            <div>
+                                <span>Taxes</span>
+                                <h2>0.00 %</h2>
+                            </div>
+                            <div>
+                                <span>Total (USD)</span>
+                                <h2 className="bill-total">$ 146.00</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
                 </div>
             </div>
         );

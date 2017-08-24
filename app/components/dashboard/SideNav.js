@@ -2,51 +2,39 @@
 import React, { Component } from "react";
 import Toggle from "react-toggle";
 import Select from "react-select";
+import { setAddInfo, setPayDate, setCurrency } from "../../actions";
+import { connect } from "react-redux";
 
 const currencyData = require("./data.json");
 
-type Props = {};
-
-type State = {
-    discount: ?number,
-    tax: ?number,
-    payDate: boolean,
-    currency: {"value": ?string, "label": ?string},
+type Props = {
+    setAddInfo: Function,
+    setPayDate: Function,
+    setCurrency: Function
 };
 
-export default class SideNav extends Component {
+class SideNav extends Component {
     state: State;
 
     constructor(props: Props) {
         super(props);
-        this.state = {
-            discount: undefined,
-            tax: undefined,
-            payDate: false,
-            currency: { "value": "$", "label": "USD" },
-        }
     }
 
     handleChange = (e: Event) => {
         if (e.target instanceof HTMLInputElement) {
-            const { name, value } = e.target;
-            this.setState({
-                [name]: value 
-            });
+            let discount = e.target.name == "discount" ? e.target.value : this.props.addInfo.discount;
+            let tax = e.target.name == "tax" ? e.target.value : this.props.addInfo.tax;
+            this.props.setAddInfo(discount, tax);
         }
     }
 
     selectChange = (val: {value: ?string, label: ?string}) => {
         if (val) {
-            this.setState({
-                currency: val
-            });
+            this.props.setCurrency(val);
         }
         else {
-            this.setState({
-                currency: { "value": "$", "label": "USD" }
-            });
-        }
+            this.props.setCurrency({ "value": "$", "label": "USD" });
+        }      
     }
 
     render() {
@@ -60,24 +48,24 @@ export default class SideNav extends Component {
                         <input 
                             type="text"
                             name="discount"
-                            value={this.state.discount}
+                            value={this.props.addInfo.discount}
                             onChange={this.handleChange} />
                     </div>
                     <div className="setting">
                         <span>Tax</span>
                         <input 
                             type="text"
-                            name="discount"
-                            value={this.state.tax}
+                            name="tax"
+                            value={this.props.addInfo.tax}
                             onChange={this.handleChange} />
                     </div>
                     <div className="setting setting--inline">
                         <span>Paid to date</span>
                         <label>
                             <Toggle
-                                defaultChecked={this.state.payDate}
+                                checked={this.props.payDate}
                                 icons={false}
-                                onChange={() => {this.setState({payDate: !(this.state.payDate)})}} />
+                                onChange={() => {this.props.setPayDate(!this.props.payDate)}} />
                         </label>
                     </div>
                 </div>
@@ -87,7 +75,7 @@ export default class SideNav extends Component {
                         <span>Currency</span>
                         <Select 
                             name="currency"
-                            value={this.state.currency}
+                            value={this.props.currency}
                             options={currencyData}
                             onChange={this.selectChange}
                         />
@@ -109,3 +97,21 @@ export default class SideNav extends Component {
         );
     }
 }
+
+function mapStateToProps(state, ownProps) {
+    return {
+        addInfo: state.addInfo,
+        payDate: state.payDate,
+        currency: state.currency
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        setAddInfo: (discount, tax) => dispatch(setAddInfo(discount, tax)),
+        setPayDate: (payDate) => dispatch(setPayDate(payDate)),
+        setCurrency: (currency) => dispatch(setCurrency(currency))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideNav);
