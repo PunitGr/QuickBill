@@ -92,9 +92,11 @@ class Item extends Component {
         return (
             <div className="item">
                 <div className="item__head">
-                    <div className="name">Item</div>
-                    <div className="description">Description</div>
-                    <div className="amount">Amount</div>
+                    <div>Item</div>
+                    <div>Description</div>
+                    <div>Quantity</div>
+                    <div>Amount</div>
+                    <div>Price</div>
                 </div>
                 <SortableList order={order} items={items} onSortEnd={this.onSortEnd} useDragHandle={true} onRemove={this.props.removeItem} />
                 <a onClick={this.addInput} className="solid-btn solid-btn--new">

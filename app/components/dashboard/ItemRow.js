@@ -62,6 +62,14 @@ class ItemRow extends Component {
 
     render() {
         const { obj: data } = this.state;
+        let price;
+
+        if (data.quantity * data.amount > 0) {
+            price = (<div style={style.inputStyle}>
+                        {data.quantity * data.amount}
+                    </div>);
+        }
+                        
 
         return(
             <div style={style.itemRow} className="item-row">
@@ -99,6 +107,7 @@ class ItemRow extends Component {
                     onChange={this.handleChange}
                     placeholder="Amount"
                 />
+                {price}
             </div>
         );
     }

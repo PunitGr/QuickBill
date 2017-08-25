@@ -5,6 +5,7 @@ import SideNav from "./SideNav";
 import Select from "react-select";
 import moment from "moment";
 import Item from "./Item";
+import { connect } from "react-redux";
 
 const today = moment();
 const tomorrow  = moment(new Date()).add(1,"days");
@@ -36,7 +37,7 @@ const options = [
     { value: "onhold", label: "On Hold"},
 ]
 
-export default class Invoice extends Component {
+class Invoice extends Component {
     state: State;
 
     constructor(props: Props) {
@@ -82,6 +83,14 @@ export default class Invoice extends Component {
     }
 
     render() {
+        let discount;
+        if (this.props.addInfo["discount"] > 0) {
+            discount = (<div>
+                            <span>Discount</span>
+                            <h2>{this.props.addInfo["discount"]} %</h2>
+                        </div>);
+        }
+
         return (
             <div className="wrapper">
                 <div className="invoice">
@@ -219,13 +228,14 @@ export default class Invoice extends Component {
                                 <span>Subtotal</span>
                                 <h2>123.00</h2>
                             </div>
+                            {discount}
                             <div>
                                 <span>Taxes</span>
-                                <h2>0.00 %</h2>
+                                <h2>{this.props.addInfo["tax"] || 0} %</h2>
                             </div>
                             <div>
-                                <span>Total (USD)</span>
-                                <h2 className="bill-total">$ 146.00</h2>
+                                <span>Total ({this.props.currency["label"]})</span>
+                                <h2 className="bill-total">{this.props.currency["value"]} 146.00</h2>
                             </div>
                         </div>
                     </div>
@@ -235,3 +245,12 @@ export default class Invoice extends Component {
         );
     }
 }
+
+function mapStateToProps(state, ownProps) {
+    return {
+        currency: state.currency,
+        addInfo: state.addInfo
+    }
+}
+
+export default connect(mapStateToProps, null)(Invoice);
