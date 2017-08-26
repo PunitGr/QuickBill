@@ -10,7 +10,13 @@ import { connect } from "react-redux";
 const today = moment();
 const tomorrow  = moment(new Date()).add(1,"days");
 
-type Props = {};
+type Props = {
+    currency: Object,
+    addInfo: {
+        discount: ?number,
+        tax: ?number
+    }
+};
 
 type State = {
     invoiceNumber: string,
@@ -84,7 +90,7 @@ class Invoice extends Component {
 
     render() {
         let discount;
-        if (this.props.addInfo["discount"] > 0) {
+        if (this.props.addInfo["discount"] && this.props.addInfo["discount"] > 0) {
             discount = (<div>
                             <span>Discount</span>
                             <h2>{this.props.addInfo["discount"]} %</h2>

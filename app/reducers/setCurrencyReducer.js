@@ -1,6 +1,6 @@
 // @flow
 import { SET_CURRENCY } from "../constants";
-import type { Action } from "../types/Action";
+import type { Action } from "../actions";
 
 type State = Object;
 

@@ -10,12 +10,16 @@ const currencyData = require("./data.json");
 type Props = {
     setAddInfo: Function,
     setPayDate: Function,
-    setCurrency: Function
+    setCurrency: Function,
+    currency: Object,
+    addInfo: {
+        discount: ?number,
+        tax: ?number
+    },
+    payDate: ?boolean
 };
 
 class SideNav extends Component {
-    state: State;
-
     constructor(props: Props) {
         super(props);
     }

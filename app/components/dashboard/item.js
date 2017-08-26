@@ -9,7 +9,8 @@ type Props = {
     items: Object,
     order: Array<number>,
     setItemsOrder: Function,
-    addItem: Function
+    addItem: Function,
+    removeItem: Function
 };
 
 const DragHandle = SortableHandle(() => <span><i className="fa fa-bars" aria-hidden="true" style={style.barStyle}></i></span>);
@@ -81,9 +82,9 @@ class Item extends Component {
     }
 
     addInput = () => {
-        const order = this.props.order || 0;
-        let getOrder = order.length == 0 ? order : parseInt(Math.max(...order))
-        this.props.addItem(parseInt(getOrder + 1), null);
+        const order = this.props.order;
+        let maxOrderValue = order.length == 0 ? 0 : parseInt(Math.max(...order));
+        this.props.addItem(parseInt(maxOrderValue + 1), null);
     }
 
     render() {

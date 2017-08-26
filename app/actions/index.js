@@ -1,5 +1,14 @@
 // @flow
-import { SET_USER, ADD_ITEM, SORT_ITEMS, SET_ITEM, REMOVE_ITEM, SET_CURRENCY, SET_PAYDATE, SET_ADDINFO } from "../constants";
+import {
+    SET_USER,
+    ADD_ITEM,
+    SORT_ITEMS,
+    SET_ITEM,
+    REMOVE_ITEM,
+    SET_CURRENCY,
+    SET_PAYDATE,
+    SET_ADDINFO 
+} from "../constants";
 
 export type Action = {
     type: string,

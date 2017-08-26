@@ -20,9 +20,7 @@ type State = {
         quantity: ?number,
         description: string,
         amount: ?number,
-    },
-
-    add: boolean
+    }
 };
 
 
@@ -37,8 +35,7 @@ class ItemRow extends Component {
                 description: "",
                 amount: undefined,
                 quantity: undefined
-            },
-            add: false
+            }
         }
     }
 
@@ -46,11 +43,7 @@ class ItemRow extends Component {
         if (e.target instanceof HTMLInputElement) {
             const { obj } = this.state;
             const { name, value } = e.target;
-            if (name === "amount" || name === "quantity") {
-                obj[name] = parseInt(value);
-            } else {
-                obj[name] = value;
-            }
+            obj[name] = value;
             this.setState({
                 obj
             });
@@ -64,9 +57,9 @@ class ItemRow extends Component {
         const { obj: data } = this.state;
         let price;
 
-        if (data.quantity * data.amount > 0) {
+        if (parseInt(data.quantity) * parseInt(data.amount) > 0) {
             price = (<div style={style.inputStyle}>
-                        {data.quantity * data.amount}
+                        {parseInt(data.quantity) * parseInt(data.amount)}
                     </div>);
         }
                         
@@ -93,7 +86,6 @@ class ItemRow extends Component {
                     style={style.inputStyle}
                     name="quantity"
                     type="text"
-                    pattern="[0-9]*"
                     value={data.quantity}
                     onChange={this.handleChange}
                     placeholder="Quantity"
@@ -102,7 +94,6 @@ class ItemRow extends Component {
                     style={style.inputStyle}
                     name="amount"
                     type="text"
-                    pattern="[0-9]*"
                     value={data.amount}
                     onChange={this.handleChange}
                     placeholder="Amount"

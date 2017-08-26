@@ -1,15 +1,23 @@
 // @flow
 import { ADD_ITEM, SORT_ITEMS, REMOVE_ITEM } from "../constants";
-import type { Action } from '../types/Action';
+import type { Action } from "../actions";
 
-type State = Array<mixed>;
+export type State = Array<number>;
 
-export default function itemOrderReducer(state: State = [], action: Action) {
+export default function itemOrderReducer(state: State = [], action: Action): State {
     if (action.type === SORT_ITEMS) {
-        return action.order;
-    } else if (action.type === ADD_ITEM) {
-        return [...state, action.id];
-    } else if (action.type === REMOVE_ITEM) {
+        if (action.order) {
+            return action.order;
+        }
+        return state;
+    }
+    else if (action.type === ADD_ITEM) {
+        if (action.id) {
+            return [...state, action.id];
+        }
+        return state;
+    }
+    else if (action.type === REMOVE_ITEM) {
         return state.filter(item => item !== action.id);
     }
     return state;
