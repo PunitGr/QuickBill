@@ -14,20 +14,21 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 15px 40px;
         width: 100%;
 
         .navbar__logo {
             flex-grow: 2;
-            line-height: 1.3;
             letter-spacing: .03em;
+            line-height: 2.0;
             font-size: 20px;
             font-weight: 700;
+            padding: 15px 0 15px 40px;
 
             a {
                 text-decoration: none;
                 color: #fff;
             }
+
         }
     }
 }

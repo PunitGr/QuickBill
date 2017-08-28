@@ -59,7 +59,7 @@ class ItemRow extends Component {
 
         if (parseInt(data.quantity) * parseInt(data.amount) > 0) {
             price = (<div style={style.inputStyle}>
-                        {parseInt(data.quantity) * parseInt(data.amount)}
+                        {data.quantity * data.amount}
                     </div>);
         }
                         

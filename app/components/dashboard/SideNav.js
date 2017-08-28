@@ -67,7 +67,7 @@ class SideNav extends Component {
                         <span>Paid to date</span>
                         <label>
                             <Toggle
-                                checked={this.props.payDate}
+                                defaultChecked={this.props.payDate}
                                 icons={false}
                                 onChange={() => {this.props.setPayDate(!this.props.payDate)}} />
                         </label>

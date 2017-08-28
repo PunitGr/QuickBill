@@ -89,14 +89,33 @@ class Invoice extends Component {
     }
 
     render() {
-        let discount;
-        if (this.props.addInfo["discount"] && this.props.addInfo["discount"] > 0) {
-            discount = (<div>
+        const {items} = this.props;
+        const { addInfo } = this.props;
+        let discountElement;
+        let price = 0;
+        let subTotal = 0;
+        let discount = 0;
+        let tax = 0;
+
+        if (addInfo["discount"] && addInfo["discount"] > 0) {
+            console.log(price * discount);
+            discountElement = (<div>
                             <span>Discount</span>
-                            <h2>{this.props.addInfo["discount"]} %</h2>
+                            <h2>{addInfo["discount"]} %</h2>
                         </div>);
         }
 
+        for (let key in items) {
+            if (items.hasOwnProperty(key)) {
+                if (items[key] && parseInt(items[key]["quantity"]) > 0 && parseInt(items[key]["amount"]) > 0) {
+                    price += items[key]["quantity"] * items[key]["amount"];
+                    subTotal += items[key]["quantity"] * items[key]["amount"];
+                    discount = (addInfo["discount"] / 100);
+                    tax = (addInfo["tax"] / 100);
+                    price = (price - (price * discount) + (price * tax)).toFixed(2);
+                }
+            }
+        }
         return (
             <div className="wrapper">
                 <div className="invoice">
@@ -232,16 +251,16 @@ class Invoice extends Component {
                         <div className="bill-detail">                        
                             <div>
                                 <span>Subtotal</span>
-                                <h2>123.00</h2>
+                                <h2>{this.props.currency["value"]} {subTotal}</h2>
                             </div>
-                            {discount}
+                            {discountElement}
                             <div>
                                 <span>Taxes</span>
                                 <h2>{this.props.addInfo["tax"] || 0} %</h2>
                             </div>
                             <div>
                                 <span>Total ({this.props.currency["label"]})</span>
-                                <h2 className="bill-total">{this.props.currency["value"]} 146.00</h2>
+                                <h2 className="bill-total">{this.props.currency["value"]} {price}</h2>
                             </div>
                         </div>
                     </div>
@@ -255,7 +274,8 @@ class Invoice extends Component {
 function mapStateToProps(state, ownProps) {
     return {
         currency: state.currency,
-        addInfo: state.addInfo
+        addInfo: state.addInfo,
+        items: state.items
     }
 }
 
