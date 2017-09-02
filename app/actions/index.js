@@ -7,7 +7,8 @@ import {
     REMOVE_ITEM,
     SET_CURRENCY,
     SET_PAYDATE,
-    SET_ADDINFO 
+    SET_ADDINFO,
+    SET_INVOICE_DETAILS
 } from "../constants";
 
 export type Action = {
@@ -19,7 +20,8 @@ export type Action = {
     discount?: string,
     tax?: string,
     payDate?: boolean,
-    currency?: Object
+    currency?: Object,
+    invoiceDetails?: Object
 };
 
 export function setUser(user: string): Action {
@@ -78,5 +80,13 @@ export function setPayDate(payDate: boolean): Action {
     return {
         type: SET_PAYDATE,
         payDate
+    }
+}
+
+export function setInvoiceDetails(name, val: Object): Action {
+    return {
+        type: SET_INVOICE_DETAILS,
+        name,
+        val
     }
 }
