@@ -9,7 +9,7 @@
     border-top: 1px solid #f6f6f6;
     box-shadow: 2px 0px 4px 0 rgba(156,156,156,0.2);
     color: #555;
-
+    
     h4 {
         margin-left: 40px;
         margin-right: 40px;
@@ -99,5 +99,15 @@
                 font-size: 12px;
             }
         }
+    }
+    
+    @media screen and (min-width: 961px) and (max-width: 1200px){
+        width: 260px;
+    }
+
+    @media screen and (max-width: 960px) {
+        width: 100%;
+        position: relative;
+        height: auto;
     }
 }

@@ -1,11 +1,36 @@
 .dashboard {
     margin-top: 70px;
     width: 100%;
+    background-color: #f2f5f7;
+
+    @media screen and (max-width: 1000px) {
+        display: flex;
+        flex-direction: column;
+    }
 
     .wrapper {
         width: calc(100% - 281px);
-        background-color: #f2f5f7;
-        padding: 40px 0;
+        padding: 20px 50px;
         margin-left: 281px;
+
+        @media screen and (min-width: 961px) and (max-width: 1200px) {
+            width: calc(100% - 261px);
+            padding: 15px 25px;
+            margin-left: 261px;
+        }
+
+        @media screen and (min-width: 1440px) {
+            padding: 15px 80px;
+        }
+
+        @media screen and (max-width: 960px) {
+            width: 100%;
+            margin-left: 0;
+            padding: 40px 25px;
+        }
+    }
+
+    .preview-wrapper {
+        padding: 40px 0;
     }
 }

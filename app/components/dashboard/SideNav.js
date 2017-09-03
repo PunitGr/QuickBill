@@ -4,6 +4,7 @@ import Toggle from "react-toggle";
 import Select from "react-select";
 import { setAddInfo, setPayDate, setCurrency } from "../../actions";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const currencyData = require("./data.json");
 
@@ -89,7 +90,7 @@ class SideNav extends Component {
                 <div className="side-nav__element">
                     <div className="setting">
                         <div className="solid-btn solid-btn--ghost">
-                            <a className="ghost-btn"><i className="fa fa-eye" aria-hidden="true"></i> Preview</a>
+                            <Link to="preview" className="ghost-btn"><i className="fa fa-eye" aria-hidden="true"></i> Preview</Link>
                             <a className="ghost-btn"><i className="fa fa-arrow-circle-down" aria-hidden="true"></i> Download</a>
                         </div>
                         <a className="solid-btn solid-btn--rect">

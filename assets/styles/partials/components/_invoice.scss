@@ -1,16 +1,13 @@
 .invoice {
-    @media screen and (min-width: 1000px) {
-        width: 960px;
-        margin: 0 auto;
-        background-color: #fff;  
-        box-shadow: 0 3px 12px rgba(222,222,252,.5);
-        padding: 50px;
+    margin: 30px auto;
+    background-color: #fff;  
+    box-shadow: 0 3px 12px rgba(222,222,252,.5);
+    padding: 50px;
 
-        hr {
-            max-width: 100%;
-            margin: 40px 0;
-            border: 1px solid #f2f2f2;
-        }
+    hr {
+        max-width: 100%;
+        margin: 40px 0;
+        border: 1px solid #f2f2f2;
     }
 
     @include element("header") {

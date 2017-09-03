@@ -1,11 +1,13 @@
 // @flow
 import React, { Component } from "react";
 import { SingleDatePicker } from "react-dates";
-import SideNav from "./SideNav";
 import Select from "react-select";
 import moment from "moment";
-import Item from "./Item";
 import { connect } from "react-redux";
+
+import SideNav from "./SideNav";
+import Item from "./Item";
+import { setInvoiceDetails } from "../../actions";
 
 const today = moment();
 const tomorrow  = moment(new Date()).add(1,"days");
@@ -15,6 +17,16 @@ type Props = {
     addInfo: {
         discount: ?number,
         tax: ?number
+    },
+    invoiceDetails: {
+        to: string,
+        from: string,
+        addressTo: string,
+        addressFrom: string,
+        phoneTo: string,
+        phoneFrom: string,
+        emailTo: string,
+        emailFrom: string
     }
 };
 
@@ -26,14 +38,6 @@ type State = {
     status: {value: ?string, label: ?string},
     issueFocused: boolean,
     dueFocused: boolean,
-    to: string,
-    from: string,
-    addressTo: string,
-    addressFrom: string,
-    phoneTo: string,
-    phoneFrom: string,
-    emailTo: string,
-    emailFrom: string
 };
 
 const options = [
@@ -56,23 +60,13 @@ class Invoice extends Component {
             status: { value: "paid", label: "Paid"},
             issueFocused: false,
             dueFocused: false,
-            to: "",
-            from: "",
-            addressTo: "",
-            addressFrom: "",
-            phoneTo: "",
-            phoneFrom: "",
-            emailTo: "",
-            emailFrom: "",
         }
     }
 
     handleChange = (e: Event) => {
-        if (e.target instanceof HTMLInputElement) {
+        if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
             const { name, value } = e.target;
-            this.setState({
-                [name]: value
-            });
+            this.props.setInvoiceDetails(name, value);
         }
     }
 
@@ -90,7 +84,8 @@ class Invoice extends Component {
 
     render() {
         const {items} = this.props;
-        const { addInfo } = this.props;
+        const {addInfo} = this.props;
+        const { invoiceDetails } = this.props;
         let discountElement;
         let price = 0;
         let subTotal = 0;
@@ -99,10 +94,12 @@ class Invoice extends Component {
 
         if (addInfo["discount"] && addInfo["discount"] > 0) {
             console.log(price * discount);
-            discountElement = (<div>
+            discountElement = (
+                        <div>
                             <span>Discount</span>
                             <h2>{addInfo["discount"]} %</h2>
-                        </div>);
+                        </div>
+                    );
         }
 
         for (let key in items) {
@@ -116,6 +113,7 @@ class Invoice extends Component {
                 }
             }
         }
+
         return (
             <div className="wrapper">
                 <div className="invoice">
@@ -183,13 +181,13 @@ class Invoice extends Component {
                                 type="text"
                                 className="input-element" 
                                 name="from"
-                                value={this.state.from}
+                                value={invoiceDetails.from}
                                 onChange={this.handleChange}
                                 placeholder="From"
                                 />
                             <textarea 
                                 name="addressFrom"
-                                value={this.state.addressFrom}
+                                value={invoiceDetails.addressFrom}
                                 onChange={this.handleChange}
                                 placeholder="Address"
                             />
@@ -197,7 +195,7 @@ class Invoice extends Component {
                                 type="text"
                                 className="input-element" 
                                 name="phoneFrom"
-                                value={this.state.phoneFrom}
+                                value={invoiceDetails.phoneFrom}
                                 onChange={this.handleChange}
                                 placeholder="Phone"
                                 />
@@ -205,7 +203,7 @@ class Invoice extends Component {
                                 type="email"
                                 className="input-element" 
                                 name="emailFrom"
-                                value={this.state.emailFrom}
+                                value={invoiceDetails.emailFrom}
                                 onChange={this.handleChange}
                                 placeholder="Email"
                                 />
@@ -216,13 +214,13 @@ class Invoice extends Component {
                                 type="text"
                                 className="input-element" 
                                 name="to"
-                                value={this.state.to}
+                                value={invoiceDetails.to}
                                 onChange={this.handleChange}
                                 placeholder="To"
                                 />
                             <textarea 
                                 name="addressTo"
-                                value={this.state.addressTo}
+                                value={invoiceDetails.addressTo}
                                 onChange={this.handleChange}
                                 placeholder="Address"
                             />
@@ -230,7 +228,7 @@ class Invoice extends Component {
                                 type="text"
                                 className="input-element" 
                                 name="phoneTo"
-                                value={this.state.phoneTo}
+                                value={invoiceDetails.phoneTo}
                                 onChange={this.handleChange}
                                 placeholder="Phone"
                                 />
@@ -238,7 +236,7 @@ class Invoice extends Component {
                                 type="email"
                                 className="input-element" 
                                 name="emailTo"
-                                value={this.state.emailTo}
+                                value={invoiceDetails.emailTo}
                                 onChange={this.handleChange}
                                 placeholder="Email"
                                 />
@@ -275,8 +273,15 @@ function mapStateToProps(state, ownProps) {
     return {
         currency: state.currency,
         addInfo: state.addInfo,
-        items: state.items
+        items: state.items,
+        invoiceDetails: state.invoiceDetails
     }
 }
 
-export default connect(mapStateToProps, null)(Invoice);
+function mapDispatchToProps(dispatch) {
+    return {
+        setInvoiceDetails: (name, value) => dispatch(setInvoiceDetails(name, value))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Invoice);
