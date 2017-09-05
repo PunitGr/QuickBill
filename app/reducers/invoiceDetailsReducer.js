@@ -10,7 +10,9 @@ export type invoiceDetailState = {
     phoneTo: string,
     phoneFrom: string,
     emailTo: string,
-    emailFrom: string
+    emailFrom: string,
+    invoiceNumber: string,
+    job: string,
 };
 
 const initialState: invoiceDetailState = {
@@ -21,7 +23,9 @@ const initialState: invoiceDetailState = {
     phoneTo: "",
     phoneFrom: "",
     emailTo: "",
-    emailFrom: ""
+    emailFrom: "",
+    invoiceNumber: "001",
+    job: ""
 };
 
 export default function invoiceDetailsReducer(state: invoiceDetailState = initialState, action: Action) {

@@ -58,7 +58,10 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                margin-bottom: 8px;
+            }
+
+            @include modifier("paid") {
+                padding-top: 0px;
             }
 
             .Select {
@@ -106,8 +109,10 @@
     }
 
     @media screen and (max-width: 960px) {
-        width: 100%;
+        width: calc(100% - 50px);
         position: relative;
         height: auto;
+        margin: 25px;
+        margin-bottom: 0;
     }
 }

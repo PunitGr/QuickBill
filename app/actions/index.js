@@ -8,7 +8,10 @@ import {
     SET_CURRENCY,
     SET_PAYDATE,
     SET_ADDINFO,
-    SET_INVOICE_DETAILS
+    SET_INVOICE_DETAILS,
+    SET_STATUS,
+    SET_ISSUE_DATE,
+    SET_DUE_DATE
 } from "../constants";
 
 export type Action = {
@@ -19,9 +22,12 @@ export type Action = {
     order?: Array<number>,
     discount?: string,
     tax?: string,
+    amountPaid?: string,
     payDate?: boolean,
     currency?: Object,
-    invoiceDetails?: Object
+    invoiceDetails?: Object,
+    status?: Object,
+    issueDate?: Date
 };
 
 export function setUser(user: string): Action {
@@ -61,11 +67,12 @@ export function removeItem(id: number): Action {
     }
 }
 
-export function setAddInfo(discount: string, tax: string): Action {
+export function setAddInfo(discount: string, tax: string, amountPaid: string): Action {
     return {
         type: SET_ADDINFO,
         discount,
-        tax
+        tax,
+        amountPaid
     }
 }
 
@@ -73,6 +80,13 @@ export function setCurrency(currency: Object): Action {
     return {
         type: SET_CURRENCY,
         currency
+    }
+}
+
+export function setStatus(status: Object): Action {
+    return {
+        type: SET_STATUS,
+        status
     }
 }
 
@@ -88,5 +102,19 @@ export function setInvoiceDetails(name, val: Object): Action {
         type: SET_INVOICE_DETAILS,
         name,
         val
+    }
+}
+
+export function setIssueDate(issueDate: Date): Action {
+    return {
+        type: SET_ISSUE_DATE,
+        issueDate
+    }
+}
+
+export function setDueDate(dueDate: Date): Action {
+    return {
+        type: SET_DUE_DATE,
+        dueDate
     }
 }

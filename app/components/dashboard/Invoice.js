@@ -2,15 +2,16 @@
 import React, { Component } from "react";
 import { SingleDatePicker } from "react-dates";
 import Select from "react-select";
-import moment from "moment";
 import { connect } from "react-redux";
 
 import SideNav from "./SideNav";
 import Item from "./Item";
-import { setInvoiceDetails } from "../../actions";
-
-const today = moment();
-const tomorrow  = moment(new Date()).add(1,"days");
+import {
+    setInvoiceDetails,
+    setStatus,
+    setIssueDate,
+    setDueDate
+} from "../../actions";
 
 type Props = {
     currency: Object,
@@ -26,16 +27,16 @@ type Props = {
         phoneTo: string,
         phoneFrom: string,
         emailTo: string,
-        emailFrom: string
-    }
+        emailFrom: string,
+        invoiceNumber: string,
+        job: string,
+    },
+    status: {value: ?string, label: ?string},
+    issueDate: ?Date,
+    dueDate: ?Date,
 };
 
 type State = {
-    invoiceNumber: string,
-    issueDate: ?Date,
-    dueDate: ?Date,
-    job: string,
-    status: {value: ?string, label: ?string},
     issueFocused: boolean,
     dueFocused: boolean,
 };
@@ -54,10 +55,7 @@ class Invoice extends Component {
         super(props);
         this.state = {
             invoiceNumber: "001",
-            issueDate: today,
-            dueDate: tomorrow,
             job: "",
-            status: { value: "paid", label: "Paid"},
             issueFocused: false,
             dueFocused: false,
         }
@@ -72,13 +70,9 @@ class Invoice extends Component {
 
     selectChange = (val: {value: ?string, label: ?string}) => {
         if (val) {
-            this.setState({
-                status: val
-            });
+            this.props.setStatus(val);
         }else {
-            this.setState({
-                status: { value: "paid", label: "Paid"}
-            });
+            this.prop.setStatus({ value: "paid", label: "Paid"});
         }
     }
 
@@ -120,7 +114,7 @@ class Invoice extends Component {
                     <div className="invoice__header">
                         <Select
                             name="status"
-                            value={this.state.status}
+                            value={this.props.status}
                             options={options}
                             onChange={this.selectChange}
                         />
@@ -131,10 +125,10 @@ class Invoice extends Component {
                         <div className="info">
                             <label htmlFor="date">Date</label>
                             <SingleDatePicker
-                                date={this.state.issueDate}
+                                date={this.props.issueDate}
                                 focused={this.state.issueFocused}
                                 numberOfMonths={1}
-                                onDateChange={date => this.setState({ issueDate: date })}
+                                onDateChange={date => this.props.setIssueDate(date)}
                                 onFocusChange={({focused}) => this.setState({ issueFocused: !this.state.issueFocused})}
                                 isOutsideRange={() => false}
                                 />
@@ -143,10 +137,10 @@ class Invoice extends Component {
                         <div className="info">
                             <label htmlFor="date">Due Date</label>
                             <SingleDatePicker
-                                date={this.state.dueDate}
+                                date={this.props.dueDate}
                                 focused={this.state.dueFocused}
                                 numberOfMonths={1}
-                                onDateChange={date => this.setState({ dueDate: date })}
+                                onDateChange={date => this.props.setDueDate(date)}
                                 onFocusChange={({focused}) => this.setState({ dueFocused: !this.state.dueFocused})}
                                 />
                         </div>
@@ -156,7 +150,7 @@ class Invoice extends Component {
                             <input
                                 className="input-element input-element--number"
                                 name="invoiceNumber"
-                                value={this.state.invoiceNumber}
+                                value={invoiceDetails.invoiceNumber}
                                 onChange={this.handleChange}
                                 placeholder="Invoice Number"
                                 />
@@ -167,7 +161,7 @@ class Invoice extends Component {
                             <input
                                 className="input-element"
                                 name="job"
-                                value={this.state.job}
+                                value={invoiceDetails.job}
                                 onChange={this.handleChange}
                                 placeholder="Description"
                                 />
@@ -274,13 +268,19 @@ function mapStateToProps(state, ownProps) {
         currency: state.currency,
         addInfo: state.addInfo,
         items: state.items,
-        invoiceDetails: state.invoiceDetails
+        invoiceDetails: state.invoiceDetails,
+        status: state.status,
+        issueDate: state.issueDate,
+        dueDate: state.dueDate
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        setInvoiceDetails: (name, value) => dispatch(setInvoiceDetails(name, value))
+        setInvoiceDetails: (name, value) => dispatch(setInvoiceDetails(name, value)),
+        setStatus: (statusObj) => dispatch(setStatus(statusObj)),
+        setIssueDate: (issueDate) => dispatch(setIssueDate(issueDate)),
+        setDueDate: (dueDate) => dispatch(setDueDate(dueDate))
     }
 }
 

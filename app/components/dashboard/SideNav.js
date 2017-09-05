@@ -15,7 +15,8 @@ type Props = {
     currency: Object,
     addInfo: {
         discount: ?number,
-        tax: ?number
+        tax: ?number,
+        amountPaid: ?number
     },
     payDate: ?boolean
 };
@@ -29,7 +30,8 @@ class SideNav extends Component {
         if (e.target instanceof HTMLInputElement) {
             let discount = e.target.name == "discount" ? e.target.value : this.props.addInfo.discount;
             let tax = e.target.name == "tax" ? e.target.value : this.props.addInfo.tax;
-            this.props.setAddInfo(discount, tax);
+            let amountPaid = e.target.name == "amountPaid" ? e.target.value: this.props.addInfo.amountPaid;
+            this.props.setAddInfo(discount, tax, amountPaid);
         }
     }
 
@@ -43,6 +45,19 @@ class SideNav extends Component {
     }
 
     render() {
+        let paidAmountInput;
+        let { payDate } = this.props;
+        if (payDate) {
+            paidAmountInput = (
+                <div className="setting setting--paid">
+                    <input 
+                        type="text"
+                        name="amountPaid"
+                        value={this.props.addInfo.amountPaid}
+                        onChange={this.handleChange} />
+                </div>
+            );
+        }
         return (
             <div className="side-nav">
                 <h4>Invoice Settings</h4>
@@ -68,11 +83,12 @@ class SideNav extends Component {
                         <span>Paid to date</span>
                         <label>
                             <Toggle
-                                defaultChecked={this.props.payDate}
+                                checked={this.props.payDate}
                                 icons={false}
                                 onChange={() => {this.props.setPayDate(!this.props.payDate)}} />
                         </label>
                     </div>
+                    {paidAmountInput}
                 </div>
                 <hr />
                 <div className="side-nav__element">
@@ -113,7 +129,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setAddInfo: (discount, tax) => dispatch(setAddInfo(discount, tax)),
+        setAddInfo: (discount, tax, amountPaid) => dispatch(setAddInfo(discount, tax, amountPaid)),
         setPayDate: (payDate) => dispatch(setPayDate(payDate)),
         setCurrency: (currency) => dispatch(setCurrency(currency))
     }

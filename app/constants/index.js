@@ -7,4 +7,7 @@ export const REMOVE_ITEM: string = "REMOVE_ITEM";
 export const SET_CURRENCY: string = "SET_CURRENCY";
 export const SET_ADDINFO: string = "SET_ADDINFO";
 export const SET_PAYDATE: string = "SET_PAYDATE";
+export const SET_ISSUE_DATE: string = "SET_ISSUE_DATE";
+export const SET_DUE_DATE: string = "SET_DUE_DATE";
+export const SET_STATUS: string = "SET_STATUS";
 export const SET_INVOICE_DETAILS: string = "SET_INVOICE_DETAILS";
