@@ -2,10 +2,10 @@
 import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
 
-import userReducer from "./userReducer";
 import itemsReducer from "./itemsReducer";
 import currencyReducer from "./currencyReducer";
-import payDateReducer from "./payDateReducer";
+import paidStatusReducer from "./paidStatusReducer";
+import dateFormatReducer from "./dateFormatReducer";
 import addInfoReducer from "./addInfoReducer";
 import itemOrderReducer from "./itemOrderReducer";
 import invoiceDetailsReducer from "./invoiceDetailsReducer";
@@ -18,7 +18,8 @@ const rootReducer = combineReducers({
     items: itemsReducer,
     order: itemOrderReducer,
     currency: currencyReducer,
-    payDate: payDateReducer,
+    paidStatus: paidStatusReducer,
+    dateFormat: dateFormatReducer,
     addInfo: addInfoReducer,
     invoiceDetails: invoiceDetailsReducer,
     status: statusReducer,

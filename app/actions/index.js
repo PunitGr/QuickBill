@@ -1,12 +1,12 @@
 // @flow
 import {
-    SET_USER,
     ADD_ITEM,
     SORT_ITEMS,
     SET_ITEM,
     REMOVE_ITEM,
     SET_CURRENCY,
-    SET_PAYDATE,
+    SET_DATE_FORMAT,
+    SET_PAID_STATUS,
     SET_ADDINFO,
     SET_INVOICE_DETAILS,
     SET_STATUS,
@@ -16,26 +16,19 @@ import {
 
 export type Action = {
     type: string,
-    user?: string,
     id?: number,
     value?: Object,
     order?: Array<number>,
     discount?: string,
     tax?: string,
     amountPaid?: string,
-    payDate?: boolean,
+    paidStatus?: boolean,
     currency?: Object,
+    dateFormat?: Object,
     invoiceDetails?: Object,
     status?: Object,
     issueDate?: Date
 };
-
-export function setUser(user: string): Action {
-    return {
-        type: SET_USER,
-        user
-    }
-}
 
 export function addItem(id: number, value: Object): Action {
     return {
@@ -83,6 +76,13 @@ export function setCurrency(currency: Object): Action {
     }
 }
 
+export function setDateFormat(dateFormat: Object): Action {
+    return {
+        type: SET_DATE_FORMAT,
+        dateFormat
+    }
+}
+
 export function setStatus(status: Object): Action {
     return {
         type: SET_STATUS,
@@ -90,10 +90,10 @@ export function setStatus(status: Object): Action {
     }
 }
 
-export function setPayDate(payDate: boolean): Action {
+export function setPaidStatus(paidStatus: boolean): Action {
     return {
-        type: SET_PAYDATE,
-        payDate
+        type: SET_PAID_STATUS,
+        paidStatus
     }
 }
 

@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import Toggle from "react-toggle";
 import Select from "react-select";
-import { setAddInfo, setPayDate, setCurrency } from "../../actions";
+import { setAddInfo, setPaidStatus, setCurrency, setDateFormat } from "../../actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -10,7 +10,7 @@ const currencyData = require("./data.json");
 
 type Props = {
     setAddInfo: Function,
-    setPayDate: Function,
+    setPaidStatus: Function,
     setCurrency: Function,
     currency: Object,
     addInfo: {
@@ -18,8 +18,14 @@ type Props = {
         tax: ?number,
         amountPaid: ?number
     },
-    payDate: ?boolean
+    paidStatus: ?boolean
 };
+
+const dateOptions = [
+    { value: "MM/DD/YYYY", label: "MM/DD/YYYY" },
+    { value: "DD/MM/YYYY", label: "DD/MM/YYYY" },
+    { value: "YYYY/MM/DD", label: "YYYY/MM/DD" },
+]
 
 class SideNav extends Component {
     constructor(props: Props) {
@@ -35,19 +41,28 @@ class SideNav extends Component {
         }
     }
 
-    selectChange = (val: {value: ?string, label: ?string}) => {
+    currencyChange = (val: {value: ?string, label: ?string}) => {
         if (val) {
             this.props.setCurrency(val);
         }
         else {
-            this.props.setCurrency({ "value": "$", "label": "USD" });
-        }      
+            this.props.setCurrency({"value": "$", "label": "USD"});
+        }
+    }
+
+    dateFormatChange = (val: {value: ?string, label: ?string }) => {
+        if (val) {
+            this.props.setDateFormat(val);
+        }
+        else {
+            this.props.setDateFormat({value: "MM/DD/YYYY", label: "MM/DD/YYYY"});
+        }
     }
 
     render() {
         let paidAmountInput;
-        let { payDate } = this.props;
-        if (payDate) {
+        let { paidStatus } = this.props;
+        if (paidStatus) {
             paidAmountInput = (
                 <div className="setting setting--paid">
                     <input 
@@ -58,6 +73,7 @@ class SideNav extends Component {
                 </div>
             );
         }
+
         return (
             <div className="side-nav">
                 <h4>Invoice Settings</h4>
@@ -83,27 +99,40 @@ class SideNav extends Component {
                         <span>Paid to date</span>
                         <label>
                             <Toggle
-                                checked={this.props.payDate}
+                                checked={this.props.paidStatus}
                                 icons={false}
-                                onChange={() => {this.props.setPayDate(!this.props.payDate)}} />
+                                onChange={() => {this.props.setPaidStatus(!this.props.paidStatus)}} />
                         </label>
                     </div>
                     {paidAmountInput}
                 </div>
-                <hr />
-                <div className="side-nav__element">
-                    <div className="setting">
-                        <span>Currency</span>
-                        <Select 
-                            name="currency"
-                            value={this.props.currency}
-                            options={currencyData}
-                            onChange={this.selectChange}
-                        />
+                <hr className="full-line" />
+                <div className="side-nav__inline-element">
+                    <div className="side-nav__element side-nav__element--select">
+                        <div className="setting">
+                            <span>Currency</span>
+                            <Select 
+                                name="currency"
+                                value={this.props.currency}
+                                options={currencyData}
+                                onChange={this.currencyChange}
+                            />
+                        </div>
+                    </div>
+                    <div className="side-nav__element side-nav__element--select">
+                        <div className="setting">
+                            <span>Date Format</span>
+                            <Select 
+                                name="dateFormat"
+                                value={this.props.dateFormat}
+                                options={dateOptions}
+                                onChange={this.dateFormatChange}
+                            />
+                        </div>
                     </div>
                 </div>
-                <hr className="full-line" />
-                <div className="side-nav__element">
+                <hr className="full-line visiblity-check"/>
+                <div className="side-nav__element visiblity-check">
                     <div className="setting">
                         <div className="solid-btn solid-btn--ghost">
                             <Link to="preview" className="ghost-btn"><i className="fa fa-eye" aria-hidden="true"></i> Preview</Link>
@@ -122,16 +151,18 @@ class SideNav extends Component {
 function mapStateToProps(state, ownProps) {
     return {
         addInfo: state.addInfo,
-        payDate: state.payDate,
-        currency: state.currency
+        paidStatus: state.paidStatus,
+        currency: state.currency,
+        dateFormat: state.dateFormat
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         setAddInfo: (discount, tax, amountPaid) => dispatch(setAddInfo(discount, tax, amountPaid)),
-        setPayDate: (payDate) => dispatch(setPayDate(payDate)),
-        setCurrency: (currency) => dispatch(setCurrency(currency))
+        setPaidStatus: (paidStatus) => dispatch(setPaidStatus(paidStatus)),
+        setCurrency: (currency) => dispatch(setCurrency(currency)),
+        setDateFormat: (dateFormat) => dispatch(setDateFormat(dateFormat)),
     }
 }
 

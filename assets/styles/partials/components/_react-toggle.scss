@@ -45,6 +45,34 @@
             }
         }
     }
+
+    @media screen and (max-width: 960px) {
+        .react-toggle-track {
+            width: 52px;
+            height: 12px;
+        }
+
+        .react-toggle-thumb {
+            width: 18px;
+            height: 18px;
+
+            &:after {
+                font-size: 10px;
+                top: 0;
+            }
+        }
+
+        @include modifier("checked") {
+
+            .react-toggle-thumb {
+                left: 34px;
+
+                &:after {
+                    line-height: 1.7;
+                }
+            }
+        }
+    }
 }
 
 .react-toggle-screenreader-only {

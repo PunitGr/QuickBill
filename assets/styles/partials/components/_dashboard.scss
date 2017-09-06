@@ -3,9 +3,10 @@
     width: 100%;
     background-color: #f2f5f7;
 
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 961px) {
         display: flex;
         flex-direction: column;
+        background-color: #fff;
     }
 
     .wrapper {

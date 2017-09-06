@@ -42,10 +42,10 @@ type State = {
 };
 
 const options = [
-    { value: "paid", label: "Paid"},
-    { value: "due", label: "Due"},
-    { value: "overdue", label: "Overdue"},
-    { value: "onhold", label: "On Hold"},
+    { value: "paid", label: "Paid" },
+    { value: "due", label: "Due" },
+    { value: "overdue", label: "Overdue" },
+    { value: "onhold", label: "On Hold" },
 ]
 
 class Invoice extends Component {
@@ -87,7 +87,6 @@ class Invoice extends Component {
         let tax = 0;
 
         if (addInfo["discount"] && addInfo["discount"] > 0) {
-            console.log(price * discount);
             discountElement = (
                         <div>
                             <span>Discount</span>
