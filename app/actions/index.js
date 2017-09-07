@@ -11,7 +11,8 @@ import {
     SET_INVOICE_DETAILS,
     SET_STATUS,
     SET_ISSUE_DATE,
-    SET_DUE_DATE
+    SET_DUE_DATE,
+    SET_WIDTH
 } from "../constants";
 
 export type Action = {
@@ -27,7 +28,8 @@ export type Action = {
     dateFormat?: Object,
     invoiceDetails?: Object,
     status?: Object,
-    issueDate?: Date
+    issueDate?: Date,
+    width?: number
 };
 
 export function addItem(id: number, value: Object): Action {
@@ -116,5 +118,12 @@ export function setDueDate(dueDate: Date): Action {
     return {
         type: SET_DUE_DATE,
         dueDate
+    }
+}
+
+export function setWidth(width: number): Action {
+    return {
+        type: SET_WIDTH,
+        width
     }
 }

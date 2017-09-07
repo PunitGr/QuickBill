@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from "react-sortable-hoc";
 import ItemRow from "./ItemRow";
-import { addItem, setItemsOrder, removeItem } from "../../actions";
+import { addItem, setItemsOrder, removeItem, setWidth } from "../../actions";
 import { connect } from "react-redux";
 
 type Props = {
@@ -10,7 +10,8 @@ type Props = {
     order: Array<number>,
     setItemsOrder: Function,
     addItem: Function,
-    removeItem: Function
+    removeItem: Function,
+    setWidth: Function
 };
 
 const DragHandle = SortableHandle(() => <span><i className="fa fa-bars" aria-hidden="true" style={style.barStyle}></i></span>);
@@ -87,6 +88,12 @@ class Item extends Component {
         this.props.addItem(parseInt(maxOrderValue + 1), null);
     }
 
+    componentDidMount() {
+        window.addEventListener('resize', () => {
+            this.props.setWidth(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
+        });
+    }
+
     render() {
         let { order, items } = this.props;
 
@@ -112,7 +119,8 @@ class Item extends Component {
 function mapStateToProps(state, ownProps) {
     return {
         items: state.items,
-        order: state.order
+        order: state.order,
+        width: state.width
     }
 }
 
@@ -120,7 +128,8 @@ function mapDispatchToProps(dispatch) {
     return {
         setItemsOrder: item => dispatch(setItemsOrder(item)),
         addItem: (id, value) => dispatch(addItem(id, value)),
-        removeItem: (id) => dispatch(removeItem(id))
+        removeItem: (id) => dispatch(removeItem(id)),
+        setWidth: (width) => dispatch(setWidth(width))
     }
 }
 

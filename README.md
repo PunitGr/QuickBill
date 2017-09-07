@@ -1,2 +1,2 @@
-# MakeInvoice
+# QuickBill
 Create unlimited invoices for free.

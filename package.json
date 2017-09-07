@@ -7,7 +7,8 @@
     "start-dev": "webpack-dev-server --content-base . --history-api-fallback --hot --inline --progress --colors --port 8000",
     "compile-sass": "sass --watch assets/styles:assets/css --style compressed",
     "start": "NODE_ENV=development concurrently \"npm run start-dev\" \"npm run compile-sass\"",
-    "start-server": "node server.js"
+    "start-server": "node server.js",
+    "build": "webpack -p"
   },
   "repository": "git@github.com:PunitGr/MakeInvoice.git",
   "author": "PunitGr <groove679@gmail.com>",

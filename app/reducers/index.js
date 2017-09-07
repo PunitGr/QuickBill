@@ -12,6 +12,7 @@ import invoiceDetailsReducer from "./invoiceDetailsReducer";
 import statusReducer from "./statusReducer";
 import issueDateReducer from "./issueDateReducer";
 import dueDateReducer from "./dueDateReducer";
+import widthReducer from "./widthReducer";
 
 const rootReducer = combineReducers({
     routing: routerReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
     invoiceDetails: invoiceDetailsReducer,
     status: statusReducer,
     issueDate: issueDateReducer,
-    dueDate: dueDateReducer
+    dueDate: dueDateReducer,
+    width: widthReducer
 });
 
 export default rootReducer;

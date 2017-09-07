@@ -25,7 +25,8 @@ const initialState: invoiceDetailState = {
     emailTo: "",
     emailFrom: "",
     invoiceNumber: "001",
-    job: ""
+    job: "",
+    invoiceType: "Invoice"
 };
 
 export default function invoiceDetailsReducer(state: invoiceDetailState = initialState, action: Action) {

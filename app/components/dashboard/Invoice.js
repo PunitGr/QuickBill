@@ -57,7 +57,7 @@ class Invoice extends Component {
             invoiceNumber: "001",
             job: "",
             issueFocused: false,
-            dueFocused: false,
+            dueFocused: false
         }
     }
 
@@ -117,7 +117,13 @@ class Invoice extends Component {
                             options={options}
                             onChange={this.selectChange}
                         />
-                        <h2>Invoice</h2>
+                        <input
+                            className="invoice-type"
+                            name="invoiceType"
+                            value={invoiceDetails.invoiceType}
+                            onChange={this.handleChange}
+                            maxLength="10"
+                            />
                     </div>
 
                     <div className="invoice__info">
@@ -158,7 +164,7 @@ class Invoice extends Component {
                         <div className="info">
                             <label htmlFor="job">Job</label>
                             <input
-                                className="input-element"
+                                className="input-element input-element--job"
                                 name="job"
                                 value={invoiceDetails.job}
                                 onChange={this.handleChange}

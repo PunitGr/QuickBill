@@ -35,7 +35,8 @@ class ItemRow extends Component {
                 description: "",
                 amount: undefined,
                 quantity: undefined
-            }
+            },
+            width: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
         }
     }
 
@@ -60,6 +61,10 @@ class ItemRow extends Component {
         if (parseInt(data.quantity) * parseInt(data.amount) > 0) {
             price = (<div style={style.inputStyle}>
                         {data.quantity * data.amount}
+                    </div>);
+        } else {
+            price = (<div style={style.inputStyle}>
+                        0
                     </div>);
         }
                         
@@ -113,7 +118,8 @@ const style = {
     },
     inputStyle: {
         border: "0px",
-        width: "160px",
+        maxWidth: "160px",
+        width: "100%",
         padding: "2px",
         backgroundColor: "#FBFCFC",
     },
@@ -136,6 +142,24 @@ const style = {
         color: "#999",
         margin: "4px 15px 4px 0"
     }
+}
+
+const responsiveStyle = {
+    itemRow: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%",
+        flexWrap: "Wrap"
+    },
+    inputStyle: {
+        border: "0px",
+        maxWidth: "160px",
+        width: "100%",
+        padding: "5px",
+        margin: "2px",
+        backgroundColor: "#FBFCFC",
+    },
 }
 
 function mapStateToProps(state, ownProps) {

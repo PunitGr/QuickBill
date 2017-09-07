@@ -14,7 +14,7 @@ export default function addInfoReducer(state: State = {discount: "0", tax: "0", 
             discount: action.discount,
             tax: action.tax,
             amountPaid: action.amountPaid
-        };
+        }
     }
     return state;
 } 

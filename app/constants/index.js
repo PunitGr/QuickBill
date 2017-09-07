@@ -7,6 +7,7 @@ export const REMOVE_ITEM: string = "REMOVE_ITEM";
 
 // ItemRow.js
 export const SET_ITEM: string = "SET_ITEM";
+export const SET_WIDTH: string = "SET_WIDTH";
 
 // SideNav.js
 export const SET_CURRENCY: string = "SET_CURRENCY";
