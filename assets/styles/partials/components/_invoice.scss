@@ -4,6 +4,10 @@
     box-shadow: 0 3px 12px rgba(222,222,252,.5);
     padding: 50px;
 
+    @media screen and (max-width: 500px) {
+        padding: 25px 15px;
+    }
+
     hr {
         max-width: 100%;
         margin: 40px 0;
@@ -51,23 +55,46 @@
                 font-weight: 400;
             }
         }
+
+        .invoice-type {
+            width: 180px;
+            height: 52px;
+            align-self: center;
+            font-size: 32px;
+            font-weight: 400;
+            color: #555;
+            letter-spacing: .003em;
+            border: 0px;
+            text-align: right;
+            border-radius: 3px;
+            padding: 5px;
+
+            @media screen and (max-width: 375px) {
+                width: 140px;
+            }
+
+            @media screen and (max-width: 320px) {
+                width: 115px;
+                padding: 5px 0;
+            }
+        }
     }
 
     @include element("info") {
         display: flex;
-        max-width: 600px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: 640px;
         width: 100%;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         margin-top: 15px;
-
-        
-        
+ 
         .info {
             &>label {
-                font-weight: 300;
-                font-size: 13px;
+                font-weight: 400;
+                font-size: 14px;
                 margin-right: 5px;
                 color: #555;
             }
@@ -136,10 +163,20 @@
                     width: 50px;
                 }
 
+                @include modifier("job") {
+                    width: 160px;
+                }
+
                 &:focus {
                     border-radius: 3px;
                     border: 1px solid #D0D6DC;
                 }
+            }
+
+            &>input {
+                border: 0;
+                font-size: 14px;
+                padding: 5px;
             }
         
         }
@@ -151,11 +188,15 @@
             &>label {
                 text-transform: uppercase;
                 color: #21d4fd;
+                font-size: 18px;
+                font-weight: 600;
             }
 
             &>input {
                 border: 0;
-                margin: 12px 0 0;
+                margin: 10px 0 0;
+                font-size: 14px;
+                padding: 5px;
                 max-width: 270px;
                 width: 100%;
             }
@@ -165,7 +206,22 @@
                 max-width: 270px;
                 height: 60px;
                 margin-top: 10px;
+                font-size: 14px;
+                padding: 5px;
                 border: 0;
+            }
+        }
+
+        @media screen and (max-width: 740px) {
+            flex-direction: column;
+            align-items: flex-start;
+
+            .info {
+                margin-top: 5px;
+            }
+
+            .address-element {
+                margin-top: 5px;
             }
         }
     }

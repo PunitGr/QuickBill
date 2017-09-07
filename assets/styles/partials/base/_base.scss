@@ -45,6 +45,34 @@ ul, li {
 
 input, textarea {
     outline: none;
+    text-decoration: none;
+    &:focus {
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        border: 1px solid rgba(81, 203, 238, 1);
+    }
+}
+
+::-webkit-input-placeholder { /* Chrome */
+    color: #666;
+    font-size: 14px;
+    font-weight: 300px;
+}
+    :-ms-input-placeholder { /* IE 10+ */
+    color: #666;
+    font-size: 14px;
+    font-weight: 300px;
+}
+    ::-moz-placeholder { /* Firefox 19+ */
+    color: #666;
+    font-size: 14px;
+    font-weight: 300px;
+    opacity: 1;
+}
+    :-moz-placeholder { /* Firefox 4 - 18 */
+    color: #666;
+    font-size: 14px;
+    font-weight: 300px;
+    opacity: 1;
 }
 
 .undo-box-sizing * {
