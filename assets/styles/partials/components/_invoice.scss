@@ -64,9 +64,9 @@
             font-weight: 400;
             color: #555;
             letter-spacing: .003em;
-            border: 0px;
+            border: 1px solid #D2D8DE;
+            border-radius: 2px;
             text-align: right;
-            border-radius: 3px;
             padding: 5px;
 
             @media screen and (max-width: 375px) {
@@ -154,7 +154,8 @@
 
             .input-element {
                 width: 90px;
-                border: 0;
+                border: 1px solid #D2D8DE;
+                border-radius: 2px;
                 font-weight: 400;
                 height: 30px;
                 color: #222;
@@ -174,12 +175,47 @@
             }
 
             &>input {
-                border: 0;
                 font-size: 14px;
                 padding: 5px;
             }
-        
+            
+            @media screen and (max-width: 960px) {
+                margin-top: 5px;
+
+                &>label {
+                    font-size: 13px;
+                    margin-right: 6px;
+                }
+
+                .SingleDatePicker {
+                    margin-bottom: 4px;
+
+                    .DateInput {
+                        font-size: 14px;
+                    }
+                }
+
+                .input-element {
+                    width: 100px;
+                    font-size: 15px;
+                    margin-bottom: 4px;
+
+                    @include modifier("number") {
+                        width: 80px;
+                    }
+
+                    @include modifier("job") {
+                        width: 200px;
+                    }
+                }
+                
+                &>input {
+                    font-size: 14px;
+                    padding: 16px 5px;
+                }
+            }
         }
+
         .address-element {
             display: flex;
             flex-direction: column;
@@ -193,12 +229,13 @@
             }
 
             &>input {
-                border: 0;
                 margin: 10px 0 0;
                 font-size: 14px;
                 padding: 5px;
                 max-width: 270px;
                 width: 100%;
+                border: 1px solid #D2D8DE;
+                border-radius: 2px;
             }
 
             &>textarea {
@@ -208,21 +245,28 @@
                 margin-top: 10px;
                 font-size: 14px;
                 padding: 5px;
-                border: 0;
+                border: 1px solid #D2D8DE;
+                border-radius: 2px;
+            }
+
+            @media screen and (max-width: 960px) {
+                margin-top: 5px;
+                width: 80%;
+
+                &>input {
+                    padding: 10px;
+                }
+
+                &>textarea {
+                    padding: 10px;
+                    height: 75px;
+                }
             }
         }
 
-        @media screen and (max-width: 740px) {
+        @media screen and (max-width: 960px) {
             flex-direction: column;
             align-items: flex-start;
-
-            .info {
-                margin-top: 5px;
-            }
-
-            .address-element {
-                margin-top: 5px;
-            }
         }
     }
 
@@ -262,6 +306,10 @@
                     font-size: 19px;
                     color: #888;
                 }
+            }
+
+            @media screen and (max-width: 740px) {
+                width: 240px;
             }
         }
     }

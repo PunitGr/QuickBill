@@ -39,7 +39,7 @@
         margin-top: 10px;
 
         &:hover, &:focus {
-            color: #fafbfc;
+            background-image: linear-gradient(-20deg, #b321f9 0%, #21cff7 100%);
         }
     }
 
@@ -54,6 +54,17 @@
         &:hover, &:focus {
             border-color: #30cc02;
             background-color: #30cc02;
+        }
+
+        @media screen and (max-width: 520px) {
+            margin: 10px auto;
+            width: 180px;
+            letter-spacing: .03em;
+            display: flex;
+            justify-content: center;
+            padding: 18px;
+            font-size: 15px;
+            align-items: center;
         }
     }
 
@@ -87,7 +98,7 @@
             margin: 0;
             width: 50%;
             height: 100%;
-            color: #555;
+            color: #444;
             border: 0;
             border-radius: 0;
             padding: 0;
@@ -95,13 +106,29 @@
             background: #fff;
 
             &:hover, &:focus {
-                color: #777;
+                color: #888;
                 border-color: #D0D6DC;
             }
 
             &:first-child {
                 border-right: 1px solid #D0D6DC;
             }
+        }
+    }
+
+    @include modifier("dashboard") {
+        height: 40px;
+        line-height: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        letter-spacing: .01em;
+
+        .ghost-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }
