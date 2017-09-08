@@ -113,6 +113,14 @@
             &:first-child {
                 border-right: 1px solid #D0D6DC;
             }
+
+            @include modifier("preview") {
+                width: 100%;
+
+                &:first-child {
+                    border-right: 0;
+                }
+            }
         }
     }
 

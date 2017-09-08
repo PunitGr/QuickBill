@@ -6,6 +6,16 @@
     margin: 0px auto;
 
     .invoice {
+        hr {
+            max-width: 100%;
+            margin: 40px 0;
+            border: 1px solid #f2f2f2;
+        }
+
+        @media screen and (max-width: 812px) {
+            margin: 0;
+        }
+
         @include element("header") {
             align-items: center;
             max-width: 100%;
@@ -13,16 +23,23 @@
             h2, h4 {
                 margin: 0;
             }
+
+            h2 {
+                font-weight: 600;
+            }
         }
 
         @include element("info") {
             margin-top: 30px;
             align-items: flex-start;
             max-width: 540px;
-
-            >label {
-                color: #777;
-                font-size: 13px;
+            
+            .info {
+                >label {
+                    font-weight: 600;
+                    color: #777;
+                    font-size: 13px;
+                }
             }
 
             .address-element {
@@ -30,7 +47,7 @@
                 >label {
                     text-transform: uppercase;
                     color: #21d4fd;
-                    font-size: 18px;
+                    font-size: 16px;
                     font-weight: 600;
                 }
 
@@ -39,5 +56,110 @@
                 }
             }
         }
+
+        @include element("item-list") {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            @include element("head") {
+                margin: 0 15px;
+                padding: 15px 0px 15px 10px;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #f2f2f2;
+
+                >div {
+                    text-transform: uppercase;
+                    max-width: 140px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    width: 100%;
+                    color: #999;
+                }
+
+                @media screen and (max-width: 600px) {
+                    margin: 0px;
+                    padding-left: 0;
+
+                    >div {
+                        max-width: 90px; 
+                    }
+                }
+
+                @media screen and (max-width: 500px) {
+                    display: none;
+                }
+            }
+            
+            @include element("item") {
+                margin: 10px 15px;
+                padding: 15px 0px 15px 10px;
+                display: flex;
+                
+                >div {
+                    display: flex;
+                    align-items: center;
+                    max-width: 140px;
+                    width: 100%;
+
+                    >h4 {
+                        margin: 0;
+                        padding: 0;
+                        display: none;
+                        text-transform: uppercase;
+                        font-size: 12px;
+                        font-weight: 600;
+                        width: 100%;
+                        color: #999;
+                    }
+
+                    span {
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: #555;
+                    }
+                }
+
+                @media screen and (max-width: 600px) {
+                    margin: 0px;
+                    
+                    >div {
+                        max-width: 100px;
+                    }
+                }
+
+                @media screen and (max-width: 500px) {
+                    margin: 10px 0px;
+                    display: flex;
+                    flex-direction: column;
+                    border-bottom: 1px solid #f2f2f2;
+
+                    >div {
+                        max-width: 100%;
+                        margin: 5px 5px;
+                        height: auto;
+                        display: flex;
+                        align-items: flex-start;
+
+                        >h4 {
+                            display: block;
+                            width: 97px;
+                        }
+
+                        span {
+                            margin: -5px 3px;
+                            width: calc(100% - 97px);
+                        }
+                    }
+                }
+            }
+        }
     }
+}
+
+.preview-download {
+    max-width: 800px;
+    width: 100%;
+    margin: 50px auto 20px;
 }

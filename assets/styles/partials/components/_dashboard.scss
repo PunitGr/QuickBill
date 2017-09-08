@@ -33,6 +33,10 @@
 
     .preview-wrapper {
         padding: 40px 0;
+
+        @media screen and (max-width: 812px) {
+            padding-top: 0;
+        }
     }
 
     @include element("element") {

@@ -25,40 +25,20 @@ class Preview extends Component {
     }
 
     pdfToHTML() {
-        let pdf = new jsPDF('p', 'pt', 'letter');
-        let htmltoPDF = document.querySelectorAll('#HTMLtoPDF');
-        let source = htmltoPDF;
-        console.log(htmltoPDF, source);
-        let specialElementHandlers = {
-            '#bypassme': function(element, renderer) {
-                return true
+        let element = document.querySelector(".invoice");
+        let options = {
+            onrendered: function(canvas) {
+                let imgstring = canvas.toDataURL("image/jpeg", 1.0);
+                let pdf = new jsPDF();
+                pdf.addImage(imgstring, 'JPEG', 0, 5);
+                pdf.save("download.pdf");
             }
         };
-
-        const margins = {
-            top: 50,
-            left: 60,
-            width: 545
-        };
-
-        pdf.fromHTML(
-            source, // HTML string or DOM elem ref.
-            margins.left, // x coord
-            margins.top, // y coord
-            {
-                'width': margins.width, // max width of content on PDF
-                'elementHandlers': specialElementHandlers
-            },
-            function(dispose) {
-                // dispose: object with X, Y of the last line add to the PDF
-                // this allow the insertion of new lines after html
-                console.log("fucntion called");
-                pdf.save('html2pdf.pdf');
-            }
-        )
+        html2canvas(element, options);
     }
+
     render() {
-        const { items, addInfo, invoiceDetails, issueDate, dueDate, dateFormat } = this.props;
+        const { items, addInfo, invoiceDetails, issueDate, dueDate, dateFormat, width } = this.props;
 
         let discountElement;
         let price = 0;
@@ -84,16 +64,29 @@ class Preview extends Component {
                     let itemPrice = (
                         parseInt(data["quantity"]) * parseInt(data["amount"]) > 0
                         ? data["quantity"] * data["amount"] : 0
-                    );
-
+                    );                    
                     return (
-                        <div key={index} className="invoice__item">
-                            <span>{index + 1}.</span>
-                            <span>{data["name"]}</span>
-                            <span>{data["description"]}</span>
-                            <span>{data["quantity"]}</span>
-                            <span>{data["amount"]}</span>
-                            <span>{itemPrice}</span>
+                        <div key={index} className="invoice__item-list__item">
+                            <div>
+                                <h4>Name</h4>
+                                <span>{data["name"]}</span>
+                            </div>
+                            <div>
+                                <h4>Description</h4>
+                                <span>{data["description"]}</span>
+                            </div>
+                            <div>
+                                <h4>Qty</h4>
+                                <span>{data["quantity"]}</span>
+                            </div>
+                            <div>
+                                <h4>Price</h4>
+                                <span>{data["amount"]}</span>
+                            </div>
+                            <div>
+                                <h4>Subamount</h4>
+                                <span>{this.props.currency["value"]} {itemPrice}</span>
+                            </div>
                         </div>
                     );
                 }
@@ -125,6 +118,7 @@ class Preview extends Component {
                 <div className="preview-wrapper">
                     <div className="preview">
                         <div className="invoice">
+                            <link rel="stylesheet" href="/assets/css/styles.css"/>
                             <div className="invoice__header">
                                 <h4>{this.props.status["label"]}</h4>
                                 <h2>{invoiceDetails.invoiceType}</h2>
@@ -167,8 +161,16 @@ class Preview extends Component {
                             </div>
                             <hr />
                             <div className="invoice__item-list">
+                                <div className="invoice__item-list__head">
+                                    <div>Item</div>
+                                    <div>Description</div>
+                                    <div>Qty</div>
+                                    <div>Price</div>
+                                    <div>SubAmount</div>
+                                </div>
                                 {itemElement}
                             </div>
+                            <hr />
                             <div className="invoice__bill">
                                 <div className="bill-detail">                        
                                     <div>
@@ -188,6 +190,17 @@ class Preview extends Component {
                             </div>
                             <hr />
                         </div>
+                    </div>
+
+                    <div className="preview-download">
+                        <div className="solid-btn solid-btn--ghost solid-btn--dashboard">
+                            <a className="ghost-btn ghost-btn--preview" onClick={this.pdfToHTML}>
+                                <i className="fa fa-arrow-circle-down" aria-hidden="true"> </i> Download
+                            </a>
+                        </div>
+                        <a className="solid-btn solid-btn--rect solid-btn--dashboard">
+                            <i className="fa fa-paper-plane" aria-hidden="true"> </i> Send Invoice
+                        </a>
                     </div>
                 </div>
             </div>
