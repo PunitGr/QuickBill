@@ -8,7 +8,7 @@
     @include modifier("bg") {
         padding: 220px 15px 80px;
         position: relative;
-        background-image: url("/assets/images/banner.jpg");
+        background-image: url("../images/banner.jpg");
 
         @include bg();
     }
