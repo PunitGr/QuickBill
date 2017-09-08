@@ -27,7 +27,7 @@ export default class Dashboard extends Component {
                 <Invoice />
                 <div className="dashboard__element">
                     <div className="solid-btn solid-btn--ghost solid-btn--dashboard">
-                        <Link to="preview" className="ghost-btn"><i className="fa fa-eye" aria-hidden="true"> </i> Preview</Link>
+                        <Link to="QuickBill/preview" className="ghost-btn"><i className="fa fa-eye" aria-hidden="true"> </i> Preview</Link>
                         <a className="ghost-btn"><i className="fa fa-arrow-circle-down" aria-hidden="true"> </i> Download</a>
                     </div>
                     <a className="solid-btn solid-btn--rect solid-btn--dashboard">
