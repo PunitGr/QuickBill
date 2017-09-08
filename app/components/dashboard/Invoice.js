@@ -98,11 +98,11 @@ class Invoice extends Component {
         for (let key in items) {
             if (items.hasOwnProperty(key)) {
                 if (items[key] && parseInt(items[key]["quantity"]) > 0 && parseInt(items[key]["amount"]) > 0) {
-                    price += items[key]["quantity"] * items[key]["amount"];
                     subTotal += items[key]["quantity"] * items[key]["amount"];
+                    price += subTotal;
                     discount = (addInfo["discount"] / 100);
                     tax = (addInfo["tax"] / 100);
-                    price = (price - (price * discount) + (price * tax)).toFixed(2);
+                    price = ((subTotal - (subTotal * discount)) + (subTotal * tax)).toFixed(2);
                 }
             }
         }
@@ -147,6 +147,7 @@ class Invoice extends Component {
                                 numberOfMonths={1}
                                 onDateChange={date => this.props.setDueDate(date)}
                                 onFocusChange={({focused}) => this.setState({ dueFocused: !this.state.dueFocused})}
+                                isOutsideRange={() => false}
                                 />
                         </div>
 

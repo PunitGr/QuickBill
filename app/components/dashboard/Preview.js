@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import jsPDF from "jspdf";
 import { connect } from "react-redux";
+import moment from "moment";
 
 class Preview extends Component {
     constructor(props) {
         super(props);
         this.pdfToHTML = this.pdfToHTML.bind(this);
-        console.log(props);
     }
 
     componentDidMount() {
@@ -14,10 +14,7 @@ class Preview extends Component {
         if (app) {
             app.className = "fix-navbar";
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+        window.scrollTo(0, 0);
     }
 
     componentWillUnmount() {
@@ -61,15 +58,47 @@ class Preview extends Component {
         )
     }
     render() {
-        const {items} = this.props;
-        const { addInfo } = this.props;
-        const { invoiceDetails } = this.props;
+        const { items, addInfo, invoiceDetails, issueDate, dueDate, dateFormat } = this.props;
 
         let discountElement;
         let price = 0;
         let subTotal = 0;
         let discount = 0;
         let tax = 0;
+        let job;
+        let itemElement;
+
+        if (invoiceDetails.job.length > 0) {
+            job = (
+                <div className="info">
+                    <label htmlFor="job">Job</label>
+                    {invoiceDetails.job}
+                </div>
+            );
+        }
+
+        if (items) {
+            itemElement = Object.keys(items).map((key, index) => {
+                let data = items[key];
+                if (data["name"] && data["description"] && data["quantity"] && data["amount"]) {
+                    let itemPrice = (
+                        parseInt(data["quantity"]) * parseInt(data["amount"]) > 0
+                        ? data["quantity"] * data["amount"] : 0
+                    );
+
+                    return (
+                        <div key={index} className="invoice__item">
+                            <span>{index + 1}.</span>
+                            <span>{data["name"]}</span>
+                            <span>{data["description"]}</span>
+                            <span>{data["quantity"]}</span>
+                            <span>{data["amount"]}</span>
+                            <span>{itemPrice}</span>
+                        </div>
+                    );
+                }
+            });
+        }
 
         if (addInfo["discount"] && addInfo["discount"] > 0) {
             console.log(price * discount);
@@ -82,11 +111,11 @@ class Preview extends Component {
         for (let key in items) {
             if (items.hasOwnProperty(key)) {
                 if (items[key] && parseInt(items[key]["quantity"]) > 0 && parseInt(items[key]["amount"]) > 0) {
-                    price += items[key]["quantity"] * items[key]["amount"];
                     subTotal += items[key]["quantity"] * items[key]["amount"];
+                    price += subTotal;
                     discount = (addInfo["discount"] / 100);
                     tax = (addInfo["tax"] / 100);
-                    price = (price - (price * discount) + (price * tax)).toFixed(2);
+                    price = ((subTotal - (subTotal * discount)) + (subTotal * tax)).toFixed(2);
                 }
             }
         }
@@ -97,30 +126,27 @@ class Preview extends Component {
                     <div className="preview">
                         <div className="invoice">
                             <div className="invoice__header">
-                                <span>Paid</span>
-                                <h2>Invoice</h2>
+                                <h4>{this.props.status["label"]}</h4>
+                                <h2>{invoiceDetails.invoiceType}</h2>
                             </div>
 
                             <div className="invoice__info">
                                 <div className="info">
                                     <label htmlFor="date">Date</label>
-                                    Date
+                                    {moment(issueDate).format(dateFormat["value"])}
                                 </div>
 
                                 <div className="info">
                                     <label htmlFor="date">Due Date</label>
-                                    Due Date
+                                    {moment(dueDate).format(dateFormat["value"])}
                                 </div>
 
                                 <div className="info">
                                     <label htmlFor="invoice">Invoice #</label>
-                                    Invoice Number
+                                    {invoiceDetails.invoiceNumber}
                                 </div>
 
-                                <div className="info">
-                                    <label htmlFor="job">Job</label>
-                                    Job
-                                </div>
+                                {job}
                             </div>
 
                             <div className="invoice__info">
@@ -140,6 +166,9 @@ class Preview extends Component {
                                 </div>
                             </div>
                             <hr />
+                            <div className="invoice__item-list">
+                                {itemElement}
+                            </div>
                             <div className="invoice__bill">
                                 <div className="bill-detail">                        
                                     <div>
@@ -171,7 +200,11 @@ function mapStateToProps(state, ownProps) {
         currency: state.currency,
         addInfo: state.addInfo,
         items: state.items,
-        invoiceDetails: state.invoiceDetails
+        invoiceDetails: state.invoiceDetails,
+        status: state.status,
+        issueDate: state.issueDate,
+        dueDate: state.dueDate,
+        dateFormat: state.dateFormat
     }
 }
 
