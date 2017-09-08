@@ -23,7 +23,7 @@ export default class NavBar extends Component {
         return(
             <nav className="navbar">
                 <ul>
-                    <li className="navbar__logo"><Link to="QuickBill/">QuickBill</Link></li>
+                    <li className="navbar__logo"><Link to="/QuickBill/">QuickBill</Link></li>
                     <li>
                         <a href="https://github.com/PunitGr/QuickBill" className="github-corner" target="_blank" style={ style.githubCorner }>
                             <svg height="68" viewBox="0 0 250 250" style={ style.svg } alt="PunitGr-github">
