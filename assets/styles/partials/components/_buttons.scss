@@ -70,7 +70,6 @@
 
     @include modifier("save") {
         &:hover, &:focus {
-            // border-color: #30cc02;
             background: #30cc02;
         }
     }
@@ -116,6 +115,8 @@
 
             @include modifier("preview") {
                 width: 100%;
+                padding: 5px;
+                font-size: 16px;
 
                 &:first-child {
                     border-right: 0;
@@ -130,7 +131,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 15px;
+        font-size: 16px;
         letter-spacing: .01em;
 
         .ghost-btn {

@@ -162,4 +162,12 @@
     max-width: 800px;
     width: 100%;
     margin: 50px auto 20px;
+    
+    i {
+        margin-right: 5px;
+    }
+
+    @media screen and (max-width: 812px) {
+        padding: 5px 15px;
+    }
 }
