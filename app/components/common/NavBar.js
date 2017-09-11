@@ -47,7 +47,13 @@ export default class NavBar extends Component {
                         <Link to="/QuickBill/" style={this.state.pageOffset >= 450 ? style.logo : {}}>QuickBill</Link>
                     </li>
                     <li>
-                        <a href="https://github.com/PunitGr/QuickBill" className="github-corner" target="_blank" style={ style.githubCorner }>
+                        <a 
+                        href="https://github.com/PunitGr/QuickBill"
+                        className="github-corner"
+                        rel="noopener noreferrer" 
+                        target="_blank"
+                        style={ style.githubCorner }
+                        alt="PunitGr-github">
                             <svg height="68" viewBox="0 0 250 250" style={ style.svg } alt="PunitGr-github">
                                 <path d= "M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"> 
                                 </path>
