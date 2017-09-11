@@ -15,6 +15,9 @@ class Preview extends Component {
             app.className = "fix-navbar";
         }
         window.scrollTo(0, 0);
+        if (this.props.downloadStatus) {
+            this.pdfToHTML();
+        }
     }
 
     componentWillUnmount() {
@@ -30,12 +33,12 @@ class Preview extends Component {
             onrendered: function(canvas) {
                 let imgstring = canvas.toDataURL("image/jpeg", 1.0);
                 let pdf = new jsPDF();
-                let width = element.offsetWidth *  0.264583;
+                let width = (element.offsetWidth *  0.264583) + 10;
                 let height = element.offsetHeight *  0.264583;
                 
                 pdf.deletePage(1);
                 pdf.addPage(width, height);
-                pdf.addImage(imgstring, 'JPEG', 0, 5);
+                pdf.addImage(imgstring, 'JPEG', 5, 5);
                 pdf.save("download.pdf");
             }
         };
@@ -222,7 +225,8 @@ function mapStateToProps(state, ownProps) {
         status: state.status,
         issueDate: state.issueDate,
         dueDate: state.dueDate,
-        dateFormat: state.dateFormat
+        dateFormat: state.dateFormat,
+        downloadStatus: state.downloadStatus
     }
 }
 

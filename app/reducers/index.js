@@ -13,6 +13,8 @@ import statusReducer from "./statusReducer";
 import issueDateReducer from "./issueDateReducer";
 import dueDateReducer from "./dueDateReducer";
 import widthReducer from "./widthReducer";
+import downloadStatusReducer from "./downloadStatusReducer";
+
 
 const rootReducer = combineReducers({
     routing: routerReducer,
@@ -26,7 +28,8 @@ const rootReducer = combineReducers({
     status: statusReducer,
     issueDate: issueDateReducer,
     dueDate: dueDateReducer,
-    width: widthReducer
+    width: widthReducer,
+    downloadStatus: downloadStatusReducer
 });
 
 export default rootReducer;

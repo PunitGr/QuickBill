@@ -12,7 +12,8 @@ import {
     SET_STATUS,
     SET_ISSUE_DATE,
     SET_DUE_DATE,
-    SET_WIDTH
+    SET_WIDTH,
+    SET_DOWNLOAD_STATUS
 } from "../constants";
 
 export type Action = {
@@ -29,7 +30,8 @@ export type Action = {
     invoiceDetails?: Object,
     status?: Object,
     issueDate?: Date,
-    width?: number
+    width?: number,
+    downloadStatus?: boolean
 };
 
 export function addItem(id: number, value: Object): Action {
@@ -96,6 +98,13 @@ export function setPaidStatus(paidStatus: boolean): Action {
     return {
         type: SET_PAID_STATUS,
         paidStatus
+    }
+}
+
+export function setDownloadStatus(downloadStatus: boolean): Action {
+    return {
+        type: SET_DOWNLOAD_STATUS,
+        downloadStatus
     }
 }
 

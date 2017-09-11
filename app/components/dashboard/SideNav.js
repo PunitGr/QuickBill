@@ -2,9 +2,16 @@
 import React, { Component } from "react";
 import Toggle from "react-toggle";
 import Select from "react-select";
-import { setAddInfo, setPaidStatus, setCurrency, setDateFormat } from "../../actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { 
+    setAddInfo,
+    setPaidStatus,
+    setCurrency,
+    setDateFormat,
+    setDownloadStatus
+} from "../../actions";
 
 const currencyData = require("./data.json");
 
@@ -12,13 +19,15 @@ type Props = {
     setAddInfo: Function,
     setPaidStatus: Function,
     setCurrency: Function,
+    setDownloadStatus: Function,
     currency: Object,
     addInfo: {
         discount: ?number,
         tax: ?number,
         amountPaid: ?number
     },
-    paidStatus: ?boolean
+    paidStatus: ?boolean,
+    downloadStatus: ?boolean
 };
 
 const dateOptions = [
@@ -135,8 +144,16 @@ class SideNav extends Component {
                 <div className="side-nav__element visiblity-check">
                     <div className="setting">
                         <div className="solid-btn solid-btn--ghost">
-                            <Link to="preview" className="ghost-btn"><i className="fa fa-eye" aria-hidden="true"></i> Preview</Link>
-                            <a className="ghost-btn"><i className="fa fa-arrow-circle-down" aria-hidden="true"></i> Download</a>
+                            <Link to="preview" className="ghost-btn">
+                                <i className="fa fa-eye" aria-hidden="true"></i> Preview
+                            </Link>
+                            <Link
+                                to="preview"
+                                className="ghost-btn"
+                                onClick={() => {this.props.setDownloadStatus(!this.props.downloadStatus)}}
+                                >
+                                <i className="fa fa-arrow-circle-down" aria-hidden="true"></i> Download
+                            </Link>
                         </div>
                         <a className="solid-btn solid-btn--rect">
                             <i className="fa fa-paper-plane" aria-hidden="true"></i> Send Invoice
@@ -153,7 +170,8 @@ function mapStateToProps(state, ownProps) {
         addInfo: state.addInfo,
         paidStatus: state.paidStatus,
         currency: state.currency,
-        dateFormat: state.dateFormat
+        dateFormat: state.dateFormat,
+        downloadStatus: state.downloadStatus
     }
 }
 
@@ -163,6 +181,7 @@ function mapDispatchToProps(dispatch) {
         setPaidStatus: (paidStatus) => dispatch(setPaidStatus(paidStatus)),
         setCurrency: (currency) => dispatch(setCurrency(currency)),
         setDateFormat: (dateFormat) => dispatch(setDateFormat(dateFormat)),
+        setDownloadStatus: (downloadStatus) => dispatch(setDownloadStatus(downloadStatus))
     }
 }
 

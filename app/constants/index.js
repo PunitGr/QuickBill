@@ -20,3 +20,4 @@ export const SET_ISSUE_DATE: string = "SET_ISSUE_DATE";
 export const SET_DUE_DATE: string = "SET_DUE_DATE";
 export const SET_STATUS: string = "SET_STATUS";
 export const SET_INVOICE_DETAILS: string = "SET_INVOICE_DETAILS";
+export const SET_DOWNLOAD_STATUS: string = "SET_DOWNLOAD_STATUS";
