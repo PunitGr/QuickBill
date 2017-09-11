@@ -8,7 +8,7 @@ type Props = {
         name: string,
         description: string,
         quantity: ?number,
-        amount: ?number,
+        price: ?number,
     },
     itemId: number,
     setItem: Function
@@ -19,7 +19,7 @@ type State = {
         name: string,
         quantity: ?number,
         description: string,
-        amount: ?number,
+        price: ?number,
     }
 };
 
@@ -33,7 +33,7 @@ class ItemRow extends Component {
             obj: {
                 name: "",
                 description: "",
-                amount: undefined,
+                price: undefined,
                 quantity: undefined
             }
         }
@@ -57,9 +57,9 @@ class ItemRow extends Component {
         const { obj: data } = this.state;
         let price;
 
-        if (parseInt(data.quantity) * parseInt(data.amount) > 0) {
+        if (parseInt(data.quantity) * parseInt(data.price) > 0) {
             price = (<div style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}>
-                        {data.quantity * data.amount}
+                        {data.quantity * data.price}
                     </div>);
         } else {
             price = (<div style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}>
@@ -95,11 +95,11 @@ class ItemRow extends Component {
                 />
                 <input
                     style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}
-                    name="amount"
+                    name="price"
                     type="text"
-                    value={data.amount}
+                    value={data.price}
                     onChange={this.handleChange}
-                    placeholder="Amount"
+                    placeholder="Price"
                 />
                 {price}
             </div>

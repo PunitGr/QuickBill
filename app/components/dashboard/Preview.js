@@ -49,12 +49,13 @@ class Preview extends Component {
         const { items, addInfo, invoiceDetails, issueDate, dueDate, dateFormat, width } = this.props;
 
         let discountElement;
-        let price = 0;
+        let amount = 0;
         let subTotal = 0;
         let discount = 0;
         let tax = 0;
         let job;
         let itemElement;
+        let amountPaidElement;
 
         if (invoiceDetails.job.length > 0) {
             job = (
@@ -89,7 +90,7 @@ class Preview extends Component {
                             </div>
                             <div>
                                 <h4>Price</h4>
-                                <span>{data["amount"]}</span>
+                                <span>{data["price"]}</span>
                             </div>
                             <div>
                                 <h4>Subamount</h4>
@@ -109,14 +110,27 @@ class Preview extends Component {
                         </div>);
         }
 
+        if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0) {
+            amountPaidElement = (
+                        <div>
+                            <span>Paid to Date</span>
+                            <h2>{this.props.currency["value"]} {addInfo["amountPaid"]}</h2>
+                        </div>
+                    );
+        }
+
         for (let key in items) {
             if (items.hasOwnProperty(key)) {
-                if (items[key] && parseInt(items[key]["quantity"]) > 0 && parseInt(items[key]["amount"]) > 0) {
-                    subTotal += items[key]["quantity"] * items[key]["amount"];
-                    price += subTotal;
+                if (items[key] && parseInt(items[key]["quantity"]) > 0 && parseInt(items[key]["price"]) > 0) {
+                    subTotal += items[key]["quantity"] * items[key]["price"];
                     discount = (addInfo["discount"] / 100);
-                    tax = (addInfo["tax"] / 100);
-                    price = ((subTotal - (subTotal * discount)) + (subTotal * tax)).toFixed(2);
+                    let tax = (addInfo["tax"] / 100);
+                    if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0) {
+                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) - parseInt(addInfo["amountPaid"])).toFixed(2);
+                    }
+                    else {
+                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax)).toFixed(2);
+                    }
                 }
             }
         }
@@ -190,9 +204,10 @@ class Preview extends Component {
                                         <span>Taxes</span>
                                         <h2>{this.props.addInfo["tax"] || 0} %</h2>
                                     </div>
+                                    {amountPaidElement}
                                     <div>
                                         <span>Total ({this.props.currency["label"]})</span>
-                                        <h2 className="bill-total">{this.props.currency["value"]} {price}</h2>
+                                        <h2 className="bill-total">{this.props.currency["value"]} {amount}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -206,9 +221,6 @@ class Preview extends Component {
                                 <i className="fa fa-arrow-circle-down" aria-hidden="true"> </i> Download
                             </a>
                         </div>
-                        <a className="solid-btn solid-btn--rect solid-btn--dashboard">
-                            <i className="fa fa-paper-plane" aria-hidden="true"> </i> Send Invoice
-                        </a>
                     </div>
                 </div>
             </div>
