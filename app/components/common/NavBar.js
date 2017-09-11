@@ -1,7 +1,24 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+type Props = {};
+
 export default class NavBar extends Component {
+
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            pageOffset: window.pageYOffset
+        }
+    }
+    componentDidMount() {
+        window.addEventListener('scroll',() => {
+            this.setState({
+                pageOffset: window.pageYOffset
+            });
+        });
+    }
+
     render() {
         const style = {
             svg: {
@@ -18,12 +35,17 @@ export default class NavBar extends Component {
                 position: "fixed",
                 right: "0",
                 top: "0"
+            },
+            logo: {
+                color: "#555"
             }
         }
         return(
             <nav className="navbar">
                 <ul>
-                    <li className="navbar__logo"><Link to="/QuickBill/">QuickBill</Link></li>
+                    <li className="navbar__logo">
+                        <Link to="/QuickBill/" style={this.state.pageOffset >= 450 ? style.logo : {}}>QuickBill</Link>
+                    </li>
                     <li>
                         <a href="https://github.com/PunitGr/QuickBill" className="github-corner" target="_blank" style={ style.githubCorner }>
                             <svg height="68" viewBox="0 0 250 250" style={ style.svg } alt="PunitGr-github">

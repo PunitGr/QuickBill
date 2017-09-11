@@ -35,8 +35,7 @@ class ItemRow extends Component {
                 description: "",
                 amount: undefined,
                 quantity: undefined
-            },
-            width: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+            }
         }
     }
 
@@ -59,20 +58,19 @@ class ItemRow extends Component {
         let price;
 
         if (parseInt(data.quantity) * parseInt(data.amount) > 0) {
-            price = (<div style={style.inputStyle}>
+            price = (<div style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}>
                         {data.quantity * data.amount}
                     </div>);
         } else {
-            price = (<div style={style.inputStyle}>
+            price = (<div style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}>
                         0
                     </div>);
         }
-                        
 
         return(
-            <div style={style.itemRow} className="item-row">
+            <div style={this.props.width >= 700 ? style.itemRow : responsiveStyle.itemRow} className="item-row">
                 <input
-                    style={style.inputStyle} 
+                    style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle} 
                     name="name"
                     type="text"
                     value={data.name}
@@ -80,7 +78,7 @@ class ItemRow extends Component {
                     placeholder="Item Name"
                 />
                 <input
-                    style={style.inputStyle} 
+                    style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}
                     name="description"
                     type="text"
                     value={data.description}
@@ -88,7 +86,7 @@ class ItemRow extends Component {
                     placeholder="Description"
                 />
                 <input
-                    style={style.inputStyle}
+                    style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}
                     name="quantity"
                     type="text"
                     value={data.quantity}
@@ -96,7 +94,7 @@ class ItemRow extends Component {
                     placeholder="Quantity"
                 />
                 <input
-                    style={style.inputStyle}
+                    style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}
                     name="amount"
                     type="text"
                     value={data.amount}
@@ -154,7 +152,7 @@ const responsiveStyle = {
     },
     inputStyle: {
         border: "0px",
-        maxWidth: "160px",
+        maxWidth: "260px",
         width: "100%",
         padding: "5px",
         margin: "2px",
@@ -164,7 +162,8 @@ const responsiveStyle = {
 
 function mapStateToProps(state, ownProps) {
     return {
-        items: state.items
+        items: state.items,
+        width: state.width
     }
 }
 

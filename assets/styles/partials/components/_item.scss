@@ -10,6 +10,7 @@
         width: calc(100% - 50px);
 
         &>div {
+            text-transform: uppercase;
             max-width: 160px;
             width: 100%;
             color: #555;
@@ -18,7 +19,7 @@
             padding: 0 8px;
         }
 
-        @media screen and (max-width: 520px) {
+        @media screen and (max-width: 699px) {
             display: none;
         }
     }

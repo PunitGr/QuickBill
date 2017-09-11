@@ -1,0 +1,89 @@
+.home {
+
+    @include element("banner") {
+        margin: 0;
+        padding: 70px 15px;
+        text-align: center;
+        background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+        color: #fff;
+        
+        @media screen and (max-width: 700px) {
+            padding: 50px 15px;
+        }
+
+        @include modifier("bg") {
+            padding: 220px 15px 80px;
+            position: relative;
+            background-image: url("../images/banner.jpg");
+
+            @include bg();
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+            opacity: .8;
+        }
+
+        h2 {
+            font-weight: 300;
+            position: relative;
+            margin-bottom: 40px;
+
+            span {
+                font-weight: 700;
+            }
+
+            @media screen and (max-width: 700px) {
+                margin-top: 0;
+                font-size: 26px;
+            }
+        }
+
+        .solid-btn {
+            font-size: 18px;
+            padding: 14px 40px;
+            height: auto;
+            background-color: #62bf72;
+            border-color: #62bf72;
+            position: relative;
+        }
+
+        h4 {
+            position: relative;
+            font-weight: 400;
+            font-size: 18px;
+        }
+    
+        @include modifier("footer") {
+            color: #000;
+            background-image: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+
+            >h4 {
+                font-weight: 400;
+                font-size: 20px;
+                margin-top: 0;
+                margin-bottom: 30px;
+            }
+
+            .solid-btn {
+                background-color: #495aff;
+                border-color: #495aff;
+                margin: 30px 0 0;
+                
+                .fa-envelope {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}

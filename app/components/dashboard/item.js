@@ -11,7 +11,8 @@ type Props = {
     setItemsOrder: Function,
     addItem: Function,
     removeItem: Function,
-    setWidth: Function
+    setWidth: Function,
+    width: number
 };
 
 const DragHandle = SortableHandle(() => <span><i className="fa fa-bars" aria-hidden="true" style={style.barStyle}></i></span>);
@@ -43,7 +44,8 @@ const SortableList = SortableContainer(({order, items, onRemove}: Object) => {
 const style = {
     listWrapper: {
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
+        marginTop: "10px"
     },
     listStyle: {
         display: "flex",
@@ -53,9 +55,8 @@ const style = {
         alignItems: "center",
         backgroundColor: "#FBFCFC",
         borderRadius: "3px",
-        height: "36px",
+        height: "auto",
         padding: "2px 8px",
-        marginTop: "10px",
     },
     barStyle: {
         fontSize: "18px",
@@ -64,9 +65,9 @@ const style = {
         transition: "all .3s"
     },
     deleteButtonStyle: {
-        fontSize: "16px",
+        fontSize: "17px",
         color: "#999",
-        margin: "19px 4px"
+        margin: "14px 4px"
     }
 }
 
@@ -103,8 +104,8 @@ class Item extends Component {
                     <div>Item</div>
                     <div>Description</div>
                     <div>Quantity</div>
-                    <div>Amount</div>
                     <div>Price</div>
+                    <div>SubAmount</div>
                 </div>
                 <SortableList order={order} items={items} onSortEnd={this.onSortEnd} useDragHandle={true} onRemove={this.props.removeItem} />
                 <a onClick={this.addInput} className="solid-btn solid-btn--new">

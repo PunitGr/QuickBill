@@ -155,9 +155,6 @@ class SideNav extends Component {
                                 <i className="fa fa-arrow-circle-down" aria-hidden="true"></i> Download
                             </Link>
                         </div>
-                        <a className="solid-btn solid-btn--rect">
-                            <i className="fa fa-paper-plane" aria-hidden="true"></i> Send Invoice
-                        </a>
                     </div>
                 </div>
             </div>
