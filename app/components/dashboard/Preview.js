@@ -30,6 +30,11 @@ class Preview extends Component {
             onrendered: function(canvas) {
                 let imgstring = canvas.toDataURL("image/jpeg", 1.0);
                 let pdf = new jsPDF();
+                let width = element.offsetWidth *  0.264583;
+                let height = element.offsetHeight *  0.264583;
+                
+                pdf.deletePage(1);
+                pdf.addPage(width, height);
                 pdf.addImage(imgstring, 'JPEG', 0, 5);
                 pdf.save("download.pdf");
             }
