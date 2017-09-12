@@ -48,9 +48,16 @@
             font-size: 18px;
             padding: 14px 40px;
             height: auto;
-            background-color: #62bf72;
-            border-color: #62bf72;
+            background-color: #fff;
+            border-color: #fff;
             position: relative;
+            color: #6772e5;
+            box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+
+            &:hover, &:focus {
+                transform: translateY(-1px);
+                color: #6772e5;
+            }
         }
 
         h4 {
@@ -79,7 +86,13 @@
                 background-color: #495aff;
                 border-color: #495aff;
                 margin: 30px 0 0;
+                color: #fff;
                 
+                &:hover, &:focus {
+                    transform: translateY(-1px);
+                    color: #fff;
+                    border-color: #495aff;
+                }
                 .fa-envelope {
                     margin-right: 5px;
                 }
