@@ -31,7 +31,10 @@ export type Action = {
     status?: Object,
     issueDate?: Date,
     width?: number,
-    downloadStatus?: boolean
+    downloadStatus?: boolean,
+    dueDate?: Date,
+    name?: string,
+    val?:string
 };
 
 export function addItem(id: number, value: Object): Action {
@@ -108,7 +111,7 @@ export function setDownloadStatus(downloadStatus: boolean): Action {
     }
 }
 
-export function setInvoiceDetails(name, val: Object): Action {
+export function setInvoiceDetails(name: string, val: string): Action {
     return {
         type: SET_INVOICE_DETAILS,
         name,

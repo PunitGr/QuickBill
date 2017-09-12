@@ -91,7 +91,7 @@ class Item extends Component {
 
     componentDidMount() {
         window.addEventListener('resize', () => {
-            this.props.setWidth(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
+            this.props.setWidth(window.innerWidth);
         });
     }
 

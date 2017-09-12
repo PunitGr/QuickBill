@@ -19,6 +19,7 @@ type Props = {
     setAddInfo: Function,
     setPaidStatus: Function,
     setCurrency: Function,
+    setDateFormat: Function,
     setDownloadStatus: Function,
     currency: Object,
     addInfo: {
@@ -27,7 +28,8 @@ type Props = {
         amountPaid: ?number
     },
     paidStatus: ?boolean,
-    downloadStatus: ?boolean
+    downloadStatus: ?boolean,
+    dateFormat: ?string
 };
 
 const dateOptions = [

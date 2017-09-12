@@ -5,12 +5,10 @@ import type { Action } from "../actions";
 export type widthState = number;
 
 const initialState: widthState = (
-    window.innerWidth 
-    || document.documentElement.clientWidth
-    || document.body.clientWidth
+    window.innerWidth
 ); 
 
-export default function widthReducer(state: State = initialState, action: Action) {
+export default function widthReducer(state: widthState = initialState, action: Action) {
     if (action.type === SET_WIDTH) {
         return action.width;
     }

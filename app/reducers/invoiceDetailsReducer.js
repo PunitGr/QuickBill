@@ -1,6 +1,10 @@
 // @flow
 import { SET_INVOICE_DETAILS } from "../constants";
-import type { Action } from "../actions";
+
+export type Action = {
+    name: string,
+    val: string
+}
 
 export type invoiceDetailState = {
     to: string,

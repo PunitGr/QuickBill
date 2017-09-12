@@ -15,9 +15,11 @@ import {
 
 type Props = {
     currency: Object,
+    items: Object,
     addInfo: {
         discount: ?number,
-        tax: ?number
+        tax: ?number,
+        amountPaid: ?number
     },
     invoiceDetails: {
         to: string,
@@ -30,10 +32,15 @@ type Props = {
         emailFrom: string,
         invoiceNumber: string,
         job: string,
+        invoiceType: string
     },
     status: {value: ?string, label: ?string},
     issueDate: ?Date,
     dueDate: ?Date,
+    setInvoiceDetails: Function,
+    setStatus: Function,
+    setIssueDate: Function,
+    setDueDate: Function,
 };
 
 type State = {
@@ -72,7 +79,7 @@ class Invoice extends Component {
         if (val) {
             this.props.setStatus(val);
         }else {
-            this.prop.setStatus({ value: "paid", label: "Paid"});
+            this.props.setStatus({ value: "paid", label: "Paid"});
         }
     }
 
@@ -106,8 +113,8 @@ class Invoice extends Component {
             if (items.hasOwnProperty(key)) {
                 if (items[key] && parseInt(items[key]["quantity"]) > 0 && parseInt(items[key]["price"]) > 0) {
                     subTotal += items[key]["quantity"] * items[key]["price"];
-                    discount = (addInfo["discount"] / 100);
-                    let tax = (addInfo["tax"] / 100);
+                    discount = (parseInt(addInfo["discount"]) / 100);
+                    let tax = (parseInt(addInfo["tax"]) / 100);
                     if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0) {
                         amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) - parseInt(addInfo["amountPaid"])).toFixed(2);
                     }

@@ -4,14 +4,10 @@ import { setItem } from "../../actions";
 import { connect } from "react-redux";
 
 type Props = {
-    obj: {
-        name: string,
-        description: string,
-        quantity: ?number,
-        price: ?number,
-    },
+    items: Object,
     itemId: number,
-    setItem: Function
+    setItem: Function,
+    width: number
 };
 
 type State = {
@@ -40,7 +36,7 @@ class ItemRow extends Component {
     }
 
     componentDidMount() {
-        const {items} = this.props;
+        const { items } = this.props;
         if (items[this.props.itemId] != null) {
             this.setState({
                 obj: items[this.props.itemId]
@@ -66,7 +62,7 @@ class ItemRow extends Component {
         const { obj: data } = this.state;
         let price;
 
-        if (parseInt(data.quantity) * parseInt(data.price) > 0) {
+        if (parseInt(data.quantity) * parseInt(data.price) > 0 && data.quantity && data.price) {
             price = (<div style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}>
                         {data.quantity * data.price}
                     </div>);
