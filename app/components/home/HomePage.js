@@ -18,13 +18,15 @@ export default class HomePage extends Component {
                             frameBorder="0"
                             scrolling="0"
                             width="120px"
-                            height="30px">
+                            height="30px"
+                            title="github-star">
                         </iframe>
                         <iframe src="https://ghbtns.com/github-btn.html?user=PunitGr&repo=QuickBill&type=fork&count=true&size=large"
                             frameBorder="0"
                             scrolling="0"
                             width="120px"
-                            height="30px">
+                            height="30px"
+                            title="github-fork">
                         </iframe>
                     </div>
 

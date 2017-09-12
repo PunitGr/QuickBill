@@ -133,6 +133,7 @@ class SideNav extends Component {
                             <span>Date Format</span>
                             <Select 
                                 name="dateFormat"
+                                searchable={false}
                                 value={this.props.dateFormat}
                                 options={dateOptions}
                                 onChange={this.dateFormatChange}

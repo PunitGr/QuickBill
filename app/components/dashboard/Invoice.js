@@ -126,6 +126,7 @@ class Invoice extends Component {
                             name="status"
                             value={this.props.status}
                             options={options}
+                            searchable={false}
                             onChange={this.selectChange}
                         />
                         <input

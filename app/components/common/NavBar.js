@@ -53,7 +53,7 @@ export default class NavBar extends Component {
                         rel="noopener noreferrer" 
                         target="_blank"
                         style={ style.githubCorner }
-                        alt="PunitGr-github">
+                        alt="PunitGr">
                             <svg height="68" viewBox="0 0 250 250" style={ style.svg } alt="PunitGr-github">
                                 <path d= "M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"> 
                                 </path>

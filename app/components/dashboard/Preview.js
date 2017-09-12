@@ -69,7 +69,7 @@ class Preview extends Component {
         if (items) {
             itemElement = Object.keys(items).map((key, index) => {
                 let data = items[key];
-                if (data["name"] && data["description"] && data["quantity"] && data["amount"]) {
+                if (data) {
                     let itemPrice = (
                         parseInt(data["quantity"]) * parseInt(data["amount"]) > 0
                         ? data["quantity"] * data["amount"] : 0
@@ -98,6 +98,8 @@ class Preview extends Component {
                             </div>
                         </div>
                     );
+                } else {
+                    return;
                 }
             });
         }

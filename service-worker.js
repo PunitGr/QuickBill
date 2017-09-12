@@ -4,9 +4,9 @@ let CACHE_NAME = 'quickbill-cache-v1';
 
 let urlsToCache = [
   '/',
-  '/assets/styles/css/styles.css',
-  '/assets/styles/images/*',
-  '/dist/index-bundle.js'
+  './assets/styles/css/styles.css',
+  './assets/styles/images/*',
+  './dist/index-bundle.js'
 ];
 
 self.addEventListener("activate", event => {
