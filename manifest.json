@@ -1,0 +1,15 @@
+{
+  "background_color": "#fff",
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "192x192",
+      "src": "assets/images/icon.png",
+      "type": "image/png"
+    }
+  ],
+  "name": "QuickBill Web App",
+  "short_name": "QuickBill",
+  "start_url": "./?utm_source=web_app_manifest",
+  "theme_color": "#5564f5"
+}
