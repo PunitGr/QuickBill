@@ -20,7 +20,7 @@ type State = {
         quantity: ?number,
         description: string,
         price: ?number,
-    }
+    },
 };
 
 
@@ -36,6 +36,15 @@ class ItemRow extends Component {
                 price: undefined,
                 quantity: undefined
             }
+        }
+    }
+
+    componentDidMount() {
+        const {items} = this.props;
+        if (items[this.props.itemId] != null) {
+            this.setState({
+                obj: items[this.props.itemId]
+            });
         }
     }
 

@@ -71,8 +71,8 @@ class Preview extends Component {
                 let data = items[key];
                 if (data) {
                     let itemPrice = (
-                        parseInt(data["quantity"]) * parseInt(data["amount"]) > 0
-                        ? data["quantity"] * data["amount"] : 0
+                        parseInt(data["quantity"]) * parseInt(data["price"]) > 0
+                        ? data["quantity"] * data["price"] : 0
                     );                    
                     return (
                         <div key={index} className="invoice__item-list__item">
