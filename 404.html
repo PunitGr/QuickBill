@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#5564f5">
     <title>QuickBill</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
@@ -49,7 +49,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js').then((registration) => {
+                navigator.serviceWorker.register('service-worker.js', {scope: "./Quickbill/"}).then((registration) => {
                     console.log("ServiceWorker Registration successful with scope: ", registration.scope);
                 }, (err) => {
                     console.log("Service Worker registration failed");
