@@ -4,8 +4,8 @@ let CACHE_NAME = 'quickbill-cache-v1';
 
 let urlsToCache = [
   '/',
-  './assets/styles/css/styles.css',
-  './assets/styles/images/*',
+  './assets/css/styles.css',
+  './assets/images/*',
   './dist/index-bundle.js'
 ];
 
