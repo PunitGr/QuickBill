@@ -7,7 +7,7 @@ export default class HomePage extends Component {
             <div className="home">
                 <div className="home__banner home__banner--bg">
                     <div className="overlay"></div>
-                    <h2>Free and Simple <span>invoicing</span> for humans and bussineses.</h2>
+                    <h2>Free and Simple <span>invoicing</span> for freelancers and businesses.</h2>
                     <Link to="/QuickBill/dashboard" className="solid-btn">Create Invoice</Link>
                     <h4>No signup required</h4>
                 </div>
