@@ -2,12 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#5564f5">
     <title>QuickBill</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Free and Simple invoicing for humans and bussineses.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="./manifest.json">
+    <link rel="canonical" href="https://PunitGr.github.io/QuickBill/">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="QuickBill">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="QuickBill">
+    <link rel="icon" sizes="192x192" href="assets/images/icon.png">
+    <link rel="apple-touch-icon" href="assets/images/icon.png">
+    <meta name="msapplication-TileImage" content="assets/images/icon.png">
+    <meta name="msapplication-TileColor" content="#5564f5">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+    <meta name="theme-color" content="#5564f5">
+    <meta property="og:title" content="QuickBill">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://PunitGr.github.io/QuickBill/assets/images/icon.png">
+    <meta property="og:url" content="https://PunitGr.github.io/QuickBill/">
+    <meta property="og:description" content="Free and Simple invoicing for humans and bussineses.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://PunitGr.github.io/QuickBill/">
+    <meta name="twitter:title" content="QuickBill">
+    <meta name="twitter:description" content="The best and easiest way to create invoice for humans. No install just use it right away in your browser!">
+    <meta name="twitter:image" content="https://PunitGr.github.io/QuickBill/assets/images/icon.png">
+    <meta name="twitter:creator" content="@punitgr">   
+
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -43,9 +67,9 @@
 </head>
 <body>
     <div id="app"></div>
+    <script src="dist/index.bundle.js"></script>
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script src="dist/index.bundle.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -55,6 +79,9 @@
                     console.log("Service Worker registration failed");
                 }).catch((err) => {
                     console.log(err);
+                });
+                navigator.serviceWorker.ready.then(function(registration) {
+                    console.log('Service Worker Ready');
                 });
             });
         } else {
