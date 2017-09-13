@@ -3,25 +3,25 @@ Create unlimited invoices for free and generate pdfs - Handy for freelancers and
 
 [Click here](https://punitgr.github.io/QuickBill/) to create an invoice.
 
-Here are features:
+## Features:
 
-* No Signup required and **FREE**.
+* **No Signup required and FREE.**
 
 ![Home](https://github.com/PunitGr/QuickBill/blob/master/screenshots/home.png)
 
-* Easy to use dashboard.
+* **Easy to use dashboard.**
 
 ![Dashboard](https://github.com/PunitGr/QuickBill/blob/master/screenshots/Dashboard.png)
 
-* Generate pdfs at go and preview them.
+* **Generate pdfs at go and preview them.**
 
 ![Preview](https://github.com/PunitGr/QuickBill/blob/master/screenshots/Preview%20Screen.png)
 
-* Mobile Friendly.
+* **Mobile Friendly.**
 
-* Offline Support.
+* **Offline Support.**
 
-* Add it to your device homescreen. 
+* **Add it to your device homescreen.**
 
 ## License (MIT)
 
