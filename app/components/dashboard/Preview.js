@@ -1,7 +1,35 @@
+// @flow
 import React, { Component } from "react";
 import jsPDF from "jspdf";
 import { connect } from "react-redux";
 import moment from "moment";
+
+type Props = {
+    currency: Object,
+    items: Object,
+    addInfo: {
+        discount: ?number,
+        tax: ?number,
+        amountPaid: ?number
+    },
+    invoiceDetails: {
+        to: string,
+        from: string,
+        addressTo: string,
+        addressFrom: string,
+        phoneTo: string,
+        phoneFrom: string,
+        emailTo: string,
+        emailFrom: string,
+        invoiceNumber: string,
+        job: string,
+        invoiceType: string
+    },
+    status: {value: ?string, label: ?string},
+    paidStatus: ?boolean,
+    downloadStatus: ?boolean,
+    dateFormat: ?string
+};
 
 class Preview extends Component {
     constructor(props) {
@@ -46,7 +74,7 @@ class Preview extends Component {
     }
 
     render() {
-        const { items, addInfo, invoiceDetails, issueDate, dueDate, dateFormat, width } = this.props;
+        const { items, addInfo, invoiceDetails, issueDate, dueDate, dateFormat, width, paidStatus } = this.props;
 
         let discountElement;
         let amount = 0;
@@ -112,7 +140,7 @@ class Preview extends Component {
                         </div>);
         }
 
-        if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0) {
+        if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0 && paidStatus) {
             amountPaidElement = (
                         <div>
                             <span>Paid to Date</span>
@@ -125,9 +153,9 @@ class Preview extends Component {
             if (items.hasOwnProperty(key)) {
                 if (items[key] && parseInt(items[key]["quantity"]) > 0 && parseInt(items[key]["price"]) > 0) {
                     subTotal += items[key]["quantity"] * items[key]["price"];
-                    discount = (addInfo["discount"] / 100);
-                    let tax = (addInfo["tax"] / 100);
-                    if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0) {
+                    discount = typeof((addInfo["discount"] / 100)) === "number" ? (addInfo["discount"] / 100) : 0;
+                    let tax = typeof((addInfo["tax"] / 100)) === "number" ? (addInfo["tax"] / 100) : 0;
+                    if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0 && paidStatus) {
                         amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) - parseInt(addInfo["amountPaid"])).toFixed(2);
                     }
                     else {
@@ -240,7 +268,8 @@ function mapStateToProps(state, ownProps) {
         issueDate: state.issueDate,
         dueDate: state.dueDate,
         dateFormat: state.dateFormat,
-        downloadStatus: state.downloadStatus
+        downloadStatus: state.downloadStatus,
+        paidStatus: status.paidStatus
     }
 }
 
