@@ -277,7 +277,7 @@ function mapStateToProps(state, ownProps) {
         dueDate: state.dueDate,
         dateFormat: state.dateFormat,
         downloadStatus: state.downloadStatus,
-        paidStatus: status.paidStatus
+        paidStatus: state.paidStatus
     }
 }
 
