@@ -114,8 +114,13 @@ class Invoice extends Component {
             if (items.hasOwnProperty(key)) {
                 if (items[key] && parseInt(items[key]["quantity"]) > 0 && parseInt(items[key]["price"]) > 0) {
                     subTotal += items[key]["quantity"] * items[key]["price"];
-                    discount = typeof((addInfo["discount"] / 100)) === "number" ? (addInfo["discount"] / 100) : 0;
-                    let tax = typeof((addInfo["tax"] / 100)) === "number" ? (addInfo["tax"] / 100) : 0;
+                    let tax = 0;
+                    if (addInfo["discount"] && addInfo["discount"] >= 0 ) {
+                        discount = (addInfo["discount"] / 100);
+                    }
+                    if (addInfo["tax"] && addInfo["tax"] >= 0) {
+                        tax = (addInfo["tax"] / 100);
+                    }
                     if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0 && paidStatus) {
                         amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) - parseInt(addInfo["amountPaid"])).toFixed(2);
                     }
@@ -125,6 +130,7 @@ class Invoice extends Component {
                 }
             }
         }
+
 
         return (
             <div className="wrapper">
@@ -274,7 +280,7 @@ class Invoice extends Component {
                             {discountElement}
                             <div>
                                 <span>Taxes</span>
-                                <h2>{this.props.addInfo["tax"] || 0} %</h2>
+                                <h2>{(this.props.addInfo["tax"] >= 0 ? this.props.addInfo["tax"] : 0) || 0} %</h2>
                             </div>
                             {amountPaidElement}
                             <div>

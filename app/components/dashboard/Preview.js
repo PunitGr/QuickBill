@@ -31,11 +31,14 @@ type Props = {
     dateFormat: ?string
 };
 
+
 class Preview extends Component {
     constructor(props) {
         super(props);
         this.pdfToHTML = this.pdfToHTML.bind(this);
     }
+
+    pdfToHTML: () => void;
 
     componentDidMount() {
         const app = document.querySelector("#app");
@@ -61,13 +64,14 @@ class Preview extends Component {
             onrendered: function(canvas) {
                 let imgstring = canvas.toDataURL("image/jpeg", 1.0);
                 let pdf = new jsPDF();
-                let width = (element.offsetWidth *  0.264583) + 10;
-                let height = element.offsetHeight *  0.264583;
-                
-                pdf.deletePage(1);
-                pdf.addPage(width, height);
-                pdf.addImage(imgstring, 'JPEG', 5, 5);
-                pdf.save("download.pdf");
+                if (element) {
+                    let width = (element.offsetWidth *  0.264583) + 10;
+                    let height = element.offsetHeight *  0.264583;
+                    pdf.deletePage(1);
+                    pdf.addPage(width, height);
+                    pdf.addImage(imgstring, 'JPEG', 5, 5);
+                    pdf.save("download.pdf");
+                }
             }
         };
         html2canvas(element, options);
@@ -133,7 +137,6 @@ class Preview extends Component {
         }
 
         if (addInfo["discount"] && addInfo["discount"] > 0) {
-            console.log(price * discount);
             discountElement = (<div>
                             <span>Discount</span>
                             <h2>{addInfo["discount"]} %</h2>
@@ -153,8 +156,13 @@ class Preview extends Component {
             if (items.hasOwnProperty(key)) {
                 if (items[key] && parseInt(items[key]["quantity"]) > 0 && parseInt(items[key]["price"]) > 0) {
                     subTotal += items[key]["quantity"] * items[key]["price"];
-                    discount = typeof((addInfo["discount"] / 100)) === "number" ? (addInfo["discount"] / 100) : 0;
-                    let tax = typeof((addInfo["tax"] / 100)) === "number" ? (addInfo["tax"] / 100) : 0;
+                    let tax = 0;
+                    if (addInfo["discount"] && addInfo["discount"] >= 0 ) {
+                        discount = (addInfo["discount"] / 100);
+                    }
+                    if (addInfo["tax"] && addInfo["tax"] >= 0) {
+                        tax = (addInfo["tax"] / 100);
+                    }
                     if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0 && paidStatus) {
                         amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) - parseInt(addInfo["amountPaid"])).toFixed(2);
                     }
@@ -231,8 +239,8 @@ class Preview extends Component {
                                     </div>
                                     {discountElement}
                                     <div>
-                                        <span>Taxes</span>
-                                        <h2>{this.props.addInfo["tax"] || 0} %</h2>
+                                    <span>Taxes</span>
+                                        <h2>{(this.props.addInfo["tax"] >= 0 ? this.props.addInfo["tax"] : 0) || 0} %</h2>
                                     </div>
                                     {amountPaidElement}
                                     <div>
