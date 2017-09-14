@@ -103,8 +103,8 @@ class Preview extends Component {
                 let data = items[key];
                 if (data) {
                     let itemPrice = (
-                        parseInt(data["quantity"]) * parseInt(data["price"]) > 0
-                        ? data["quantity"] * data["price"] : 0
+                        parseFloat(data["quantity"]) * parseFloat(data["price"]) > 0
+                        ? (data["quantity"] * data["price"]).toFixed(2) : 0
                     );                    
                     return (
                         <div key={index} className="invoice__item-list__item">
@@ -154,8 +154,8 @@ class Preview extends Component {
 
         for (let key in items) {
             if (items.hasOwnProperty(key)) {
-                if (items[key] && parseInt(items[key]["quantity"]) > 0 && parseInt(items[key]["price"]) > 0) {
-                    subTotal += items[key]["quantity"] * items[key]["price"];
+                if (items[key] && parseFloat(items[key]["quantity"]) > 0 && parseFloat(items[key]["price"]) > 0) {
+                    subTotal = (subTotal + items[key]["quantity"] * items[key]["price"]).toFixed(2);
                     let tax = 0;
                     if (addInfo["discount"] && addInfo["discount"] >= 0 ) {
                         discount = (addInfo["discount"] / 100);
@@ -164,7 +164,7 @@ class Preview extends Component {
                         tax = (addInfo["tax"] / 100);
                     }
                     if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0 && paidStatus) {
-                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) - parseInt(addInfo["amountPaid"])).toFixed(2);
+                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) - parseFloat(addInfo["amountPaid"])).toFixed(2);
                     }
                     else {
                         amount = ((subTotal - (subTotal * discount)) + (subTotal * tax)).toFixed(2);

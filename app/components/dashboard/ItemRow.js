@@ -62,9 +62,9 @@ class ItemRow extends Component {
         const { obj: data } = this.state;
         let price;
 
-        if (parseInt(data.quantity) * parseInt(data.price) > 0 && data.quantity && data.price) {
+        if (parseFloat(data.quantity) * parseFloat(data.price) > 0 && data.quantity && data.price) {
             price = (<div style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}>
-                        {data.quantity * data.price}
+                        {(data.quantity * data.price).toFixed(2)}
                     </div>);
         } else {
             price = (<div style={this.props.width >= 700 ? style.inputStyle : responsiveStyle.inputStyle}>
