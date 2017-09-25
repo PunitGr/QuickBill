@@ -5,7 +5,7 @@ import Select from "react-select";
 import { connect } from "react-redux";
 
 import SideNav from "./SideNav";
-import Item from "./Item";
+import Item from "./item";
 import {
     setInvoiceDetails,
     setStatus,

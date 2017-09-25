@@ -13,21 +13,24 @@ export default class HomePage extends Component {
                 </div>
                 <div className="home__banner home__banner--footer">
                     <h4>Star this project on Github</h4>
-                    <div>
-                        <iframe src="https://ghbtns.com/github-btn.html?user=PunitGr&repo=QuickBill&type=star&count=true&size=large"
-                            frameBorder="0"
-                            scrolling="0"
-                            width="120px"
-                            height="30px"
-                            title="github-star">
-                        </iframe>
-                        <iframe src="https://ghbtns.com/github-btn.html?user=PunitGr&repo=QuickBill&type=fork&count=true&size=large"
-                            frameBorder="0"
-                            scrolling="0"
-                            width="120px"
-                            height="30px"
-                            title="github-fork">
-                        </iframe>
+                    <div className="github-buttons">
+                        <a className="github-button"
+                            href="https://github.com/PunitGr/QuickBill"
+                            data-icon="octicon-star"
+                            data-size="large"
+                            data-show-count="true"
+                            aria-label="Star PunitGr/QuickBill on GitHub"
+                            alt="github-star">
+                                Star
+                        </a>
+                        <a className="github-button"
+                            href="https://github.com/PunitGr/QuickBill/fork"
+                            data-icon="octicon-repo-forked" data-size="large"
+                            data-show-count="true"
+                            aria-label="Fork PunitGr/QuickBill on GitHub"
+                            alt="github-fork">
+                                Fork
+                        </a>
                     </div>
 
                     <a href="mailto:groove67@gmail.com" className="solid-btn"><i className="fa fa-envelope" aria-hidden="true"></i>Hire me!</a>
