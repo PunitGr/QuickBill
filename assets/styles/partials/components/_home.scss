@@ -65,6 +65,13 @@
             font-weight: 400;
             font-size: 18px;
         }
+
+        .github-buttons {
+            display: flex;
+            justify-content: space-between;
+            max-width: 220px;
+            width: 100%;
+        }
     
         @include modifier("footer") {
             color: #000;
