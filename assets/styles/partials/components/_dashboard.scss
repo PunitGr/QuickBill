@@ -11,17 +11,17 @@
 
     .wrapper {
         width: calc(100% - 281px);
-        padding: 20px 50px;
+        padding: 10px 50px;
         margin-left: 281px;
 
         @media screen and (min-width: 961px) and (max-width: 1200px) {
             width: calc(100% - 261px);
-            padding: 15px 25px;
+            padding: 10px 25px;
             margin-left: 261px;
         }
 
         @media screen and (min-width: 1440px) {
-            padding: 15px 80px;
+            padding: 10px 80px;
         }
 
         @media screen and (max-width: 960px) {
