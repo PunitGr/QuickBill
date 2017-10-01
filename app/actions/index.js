@@ -67,12 +67,13 @@ export function removeItem(id: number): Action {
     }
 }
 
-export function setAddInfo(discount: string, tax: string, amountPaid: string): Action {
+export function setAddInfo(discount: string, tax: string, amountPaid: string, vat: string): Action {
     return {
         type: SET_ADDINFO,
         discount,
         tax,
-        amountPaid
+        amountPaid,
+        vat
     }
 }
 

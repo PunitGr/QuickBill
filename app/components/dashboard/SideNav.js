@@ -25,7 +25,8 @@ type Props = {
     addInfo: {
         discount: ?number,
         tax: ?number,
-        amountPaid: ?number
+        amountPaid: ?number,
+        vat: ?number,
     },
     paidStatus: ?boolean,
     downloadStatus: ?boolean,
@@ -47,8 +48,9 @@ class SideNav extends Component {
         if (e.target instanceof HTMLInputElement) {
             let discount = e.target.name == "discount" ? e.target.value : this.props.addInfo.discount;
             let tax = e.target.name == "tax" ? e.target.value : this.props.addInfo.tax;
+            let vat = e.target.name == "vat" ? e.target.value : this.props.addInfo.vat;
             let amountPaid = e.target.name == "amountPaid" ? e.target.value: this.props.addInfo.amountPaid;
-            this.props.setAddInfo(discount, tax, amountPaid);
+            this.props.setAddInfo(discount, tax, amountPaid, vat);
         }
     }
 
@@ -106,6 +108,16 @@ class SideNav extends Component {
                             value={this.props.addInfo.tax}
                             onChange={this.handleChange} />
                     </div>
+
+                    <div className="setting">
+                        <span>Value added tax (VAT)</span>
+                        <input
+                            type="text"
+                            name="vat"
+                            value={this.props.addInfo.vat}
+                            onChange={this.handleChange} />
+                    </div>
+
                     <div className="setting setting--inline">
                         <span>Paid to date</span>
                         <label>
@@ -115,7 +127,9 @@ class SideNav extends Component {
                                 onChange={() => {this.props.setPaidStatus(!this.props.paidStatus)}} />
                         </label>
                     </div>
+
                     {paidAmountInput}
+
                 </div>
                 <hr className="full-line" />
                 <div className="side-nav__inline-element">
@@ -177,7 +191,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setAddInfo: (discount, tax, amountPaid) => dispatch(setAddInfo(discount, tax, amountPaid)),
+        setAddInfo: (discount, tax, amountPaid, vat) => dispatch(setAddInfo(discount, tax, amountPaid, vat)),
         setPaidStatus: (paidStatus) => dispatch(setPaidStatus(paidStatus)),
         setCurrency: (currency) => dispatch(setCurrency(currency)),
         setDateFormat: (dateFormat) => dispatch(setDateFormat(dateFormat)),
