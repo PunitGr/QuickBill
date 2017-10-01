@@ -10,7 +10,8 @@ type Props = {
     addInfo: {
         discount: ?number,
         tax: ?number,
-        amountPaid: ?number
+        amountPaid: ?number,
+        vat: ?number
     },
     invoiceDetails: {
         to: string,
@@ -81,10 +82,12 @@ class Preview extends Component {
         const { items, addInfo, invoiceDetails, issueDate, dueDate, dateFormat, width, paidStatus } = this.props;
 
         let discountElement;
+        let vatElement;
         let amount = 0;
         let subTotal = 0;
         let discount = 0;
         let tax = 0;
+        let vat = 0;
         let job;
         let itemElement;
         let amountPaidElement;
@@ -136,6 +139,15 @@ class Preview extends Component {
             });
         }
 
+        if(addInfo["vat"] && addInfo["vat"] > 0) {
+            vatElement = (
+                <div>
+                    <span>VAT</span>
+                    <h2>{(this.props.addInfo["vat"] >= 0 ? this.props.addInfo["vat"] : 0) || 0} %</h2>
+                </div>
+            )
+        }
+
         if (addInfo["discount"] && addInfo["discount"] > 0) {
             discountElement = (<div>
                             <span>Discount</span>
@@ -157,17 +169,21 @@ class Preview extends Component {
                 if (items[key] && parseFloat(items[key]["quantity"]) > 0 && parseFloat(items[key]["price"]) > 0) {
                     subTotal = (subTotal + items[key]["quantity"] * items[key]["price"]).toFixed(2);
                     let tax = 0;
+                    
                     if (addInfo["discount"] && addInfo["discount"] >= 0 ) {
                         discount = (addInfo["discount"] / 100);
                     }
                     if (addInfo["tax"] && addInfo["tax"] >= 0) {
                         tax = (addInfo["tax"] / 100);
                     }
+                    if (addInfo["vat"] && addInfo["vat"] >= 0) {
+                        vat = (addInfo["vat"] / 100);
+                    }
                     if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0 && paidStatus) {
-                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) - parseFloat(addInfo["amountPaid"])).toFixed(2);
+                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) + (subTotal * vat) - parseFloat(addInfo["amountPaid"])).toFixed(2);
                     }
                     else {
-                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax)).toFixed(2);
+                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) + (subTotal * vat)).toFixed(2);
                     }
                 }
             }
@@ -242,6 +258,7 @@ class Preview extends Component {
                                     <span>Taxes</span>
                                         <h2>{(this.props.addInfo["tax"] >= 0 ? this.props.addInfo["tax"] : 0) || 0} %</h2>
                                     </div>
+                                    {vatElement}
                                     {amountPaidElement}
                                     <div>
                                         <span>Total ({this.props.currency["label"]})</span>
