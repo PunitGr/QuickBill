@@ -143,7 +143,7 @@ class Preview extends Component {
             vatElement = (
                 <div>
                     <span>VAT</span>
-                    <h2>{(this.props.addInfo["vat"] >= 0 ? this.props.addInfo["vat"] : 0) || 0} %</h2>
+                    <h2>{this.props.addInfo["vat"]} %</h2>
                 </div>
             )
         }
