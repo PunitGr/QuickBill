@@ -19,8 +19,7 @@ type Props = {
     addInfo: {
         discount: ?number,
         tax: ?number,
-        amountPaid: ?number,
-        vat: ?number
+        amountPaid: ?number
     },
     invoiceDetails: {
         to: string,
@@ -88,11 +87,9 @@ class Invoice extends Component {
     render() {
         const { items, addInfo, invoiceDetails, paidStatus } = this.props;
         let discountElement;
-        let vatElement;
         let amount = 0;
         let subTotal = 0;
         let discount = 0;
-        let vat = 0;
         let amountPaidElement;
 
         if (addInfo["discount"] && addInfo["discount"] > 0) {
@@ -102,15 +99,6 @@ class Invoice extends Component {
                             <h2>{addInfo["discount"]} %</h2>
                         </div>
                     );
-        }
-
-        if(addInfo["vat"] && addInfo["vat"] > 0) {
-            vatElement = (
-                <div>
-                    <span>VAT</span>
-                    <h2>{this.props.addInfo["vat"]} %</h2>
-                </div>
-            )
         }
 
         if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0 && paidStatus) {
@@ -133,14 +121,11 @@ class Invoice extends Component {
                     if (addInfo["tax"] && addInfo["tax"] >= 0) {
                         tax = (addInfo["tax"] / 100);
                     }
-                    if (addInfo["vat"] && addInfo["vat"] >= 0) {
-                        vat = (addInfo["vat"] / 100);
-                    }
                     if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0 && paidStatus) {
-                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) + (subTotal * vat)  - parseFloat(addInfo["amountPaid"])).toFixed(2); 
+                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) - parseFloat(addInfo["amountPaid"])).toFixed(2);
                     }
                     else {
-                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) + (subTotal * vat)).toFixed(2);
+                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax)).toFixed(2);
                     }
                 }
             }
@@ -297,7 +282,6 @@ class Invoice extends Component {
                                 <span>Taxes</span>
                                 <h2>{(this.props.addInfo["tax"] >= 0 ? this.props.addInfo["tax"] : 0) || 0} %</h2>
                             </div>
-                            {vatElement}
                             {amountPaidElement}
                             <div>
                                 <span>Total ({this.props.currency["label"]})</span>
