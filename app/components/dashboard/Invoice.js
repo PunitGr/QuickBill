@@ -125,7 +125,7 @@ class Invoice extends Component {
         for (let key in items) {
             if (items.hasOwnProperty(key)) {
                 if (items[key] && parseFloat(items[key]["quantity"]) > 0 && parseFloat(items[key]["price"]) > 0) {
-                    subTotal = (subTotal + items[key]["quantity"] * items[key]["price"]).toFixed(2);
+                    subTotal = subTotal + (items[key]["quantity"] * items[key]["price"]);
                     let tax = 0;
                     if (addInfo["discount"] && addInfo["discount"] >= 0 ) {
                         discount = (addInfo["discount"] / 100);
@@ -137,10 +137,10 @@ class Invoice extends Component {
                         vat = (addInfo["vat"] / 100);
                     }
                     if (addInfo["amountPaid"] && addInfo["amountPaid"] > 0 && paidStatus) {
-                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) + (subTotal * vat)  - parseFloat(addInfo["amountPaid"])).toFixed(2); 
+                        amount = (subTotal - (subTotal * discount)) + (subTotal * tax) + (subTotal * vat)  - parseFloat(addInfo["amountPaid"]); 
                     }
                     else {
-                        amount = ((subTotal - (subTotal * discount)) + (subTotal * tax) + (subTotal * vat)).toFixed(2);
+                        amount = (subTotal - (subTotal * discount)) + (subTotal * tax) + (subTotal * vat);
                     }
                 }
             }
@@ -290,7 +290,7 @@ class Invoice extends Component {
                         <div className="bill-detail">                        
                             <div>
                                 <span>Subtotal</span>
-                                <h2>{this.props.currency["value"]} {subTotal}</h2>
+                                <h2>{this.props.currency["value"]} {subTotal.toFixed(2)}</h2>
                             </div>
                             {discountElement}
                             <div>
@@ -301,7 +301,7 @@ class Invoice extends Component {
                             {amountPaidElement}
                             <div>
                                 <span>Total ({this.props.currency["label"]})</span>
-                                <h2 className="bill-total">{this.props.currency["value"]} {amount}</h2>
+                                <h2 className="bill-total">{this.props.currency["value"]} {amount.toFixed(2)}</h2>
                             </div>
                         </div>
                     </div>
