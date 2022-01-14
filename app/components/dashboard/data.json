@@ -470,5 +470,13 @@
     {
         "value": "ZK",
         "label": "ZMK"
+    },
+    {
+        "value": "Ᵽ",
+        "label": "PPC"
+    },
+    {
+        "value": "₿",
+        "label": "BTC"
     }
 ]
